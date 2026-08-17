@@ -11,13 +11,6 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- 粒子画布背景 -->
-  <canvas id="particles"></canvas>
-  <!-- 网格背景 -->
-  <div class="grid-bg" aria-hidden="true"></div>
-  <!-- 光晕 -->
-  <div class="glow glow-1" aria-hidden="true"></div>
-  <div class="glow glow-2" aria-hidden="true"></div>
 
   <!-- 导航 -->
   <header class="nav">
@@ -106,19 +99,19 @@
                 <svg viewBox="0 0 240 240" role="img" aria-label="MUZI-LI 头像">
                   <defs>
                     <linearGradient id="avGrad" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stop-color="#4dd0ff"/>
-                      <stop offset="100%" stop-color="#7c5cff"/>
+                      <stop offset="0%" stop-color="#2563eb"/>
+                      <stop offset="100%" stop-color="#4f46e5"/>
                     </linearGradient>
                   </defs>
-                  <rect width="240" height="240" rx="18" fill="rgba(255,255,255,0.02)"/>
-                  <circle cx="120" cy="120" r="92" fill="none" stroke="url(#avGrad)" stroke-width="1" opacity="0.3"/>
-                  <circle cx="120" cy="120" r="74" fill="none" stroke="url(#avGrad)" stroke-width="1" opacity="0.5" stroke-dasharray="3 7"/>
+                  <rect width="240" height="240" rx="18" fill="#f6f7f9"/>
+                  <circle cx="120" cy="120" r="92" fill="none" stroke="url(#avGrad)" stroke-width="1" opacity="0.25"/>
+                  <circle cx="120" cy="120" r="74" fill="none" stroke="url(#avGrad)" stroke-width="1" opacity="0.4" stroke-dasharray="3 7"/>
                   <circle cx="120" cy="120" r="54" fill="url(#avGrad)"/>
-                  <text x="120" y="137" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="46" font-weight="700" fill="#081018">ML</text>
-                  <circle cx="120" cy="28" r="4" fill="#4dd0ff"/>
-                  <circle cx="212" cy="120" r="4" fill="#7c5cff"/>
-                  <circle cx="120" cy="212" r="4" fill="#4dd0ff"/>
-                  <circle cx="28" cy="120" r="4" fill="#7c5cff"/>
+                  <text x="120" y="137" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="46" font-weight="700" fill="#ffffff">ML</text>
+                  <circle cx="120" cy="28" r="4" fill="#2563eb"/>
+                  <circle cx="212" cy="120" r="4" fill="#4f46e5"/>
+                  <circle cx="120" cy="212" r="4" fill="#2563eb"/>
+                  <circle cx="28" cy="120" r="4" fill="#4f46e5"/>
                 </svg>
                 <p class="avatar-name">MUZI-LI</p>
                 <p class="avatar-role">AI 产品经理</p>
