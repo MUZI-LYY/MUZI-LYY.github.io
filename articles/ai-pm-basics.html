@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 产品经理的必修课：从技术理解到产品决策 · MUZI-LI</title>
+  <meta name="description" content="如何理解大模型的能力边界，并把技术判断转化为靠谱的产品决策。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/article.css" />
+</head>
+<body>
+  <!-- 导航 -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-mark">&lt;/&gt;</span>
+        <span class="logo-text">muzi<span class="accent">.dev</span></span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="../index.html#home" class="nav-link">首页</a>
+        <a href="../index.html#about" class="nav-link">关于</a>
+        <a href="../index.html#articles" class="nav-link active">文章</a>
+        <a href="../index.html#experience" class="nav-link">经历</a>
+        <a href="../index.html#contact" class="nav-link">联系</a>
+      </nav>
+      <button class="menu-btn" id="menu-btn" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="article-page">
+    <article class="post">
+      <a class="back-link" href="../index.html#articles">← 返回文章列表</a>
+
+      <header class="post-head">
+        <span class="post-cat">AI 产品</span>
+        <h1 class="post-title">AI 产品经理的必修课：从技术理解到产品决策</h1>
+        <div class="post-byline"><time>2026-06-20</time> · MUZI-LI · 10 分钟阅读</div>
+      </header>
+
+      <div class="post-content">
+        <p>很多人以为 AI 产品经理需要会写代码。其实不需要。但你至少要能回答一个问题：<strong>大模型能做什么、不能做什么，以及为什么。</strong>这决定了你能把产品边界画在哪里。</p>
+        <p>这篇写给我自己，也写给刚转行做 AI 产品的朋友。只讲三个最基础的概念，和一套简单的决策方法。</p>
+
+        <h2>一、先理解三个基本概念</h2>
+
+        <h3>1. Token：模型的"计费单位"</h3>
+        <p>模型读文字，不是按字，而是按 <code>Token</code> 切分。一个英文单词大约 1～2 个 Token，一个汉字大约 1 个 Token。为什么重要？因为它同时决定了<strong>成本</strong>和<strong>输入上限</strong>：同样的内容，切出来的 Token 越多，越贵，也越占上下文。</p>
+
+        <h3>2. 上下文窗口：模型的"短期记忆"</h3>
+        <p>模型一次能"看到"的信息是有限的，这就是上下文窗口。窗口越大，一次能塞进去的文档越多，但成本也越高、响应越慢。更重要的是，<strong>窗口满了不等于记住了</strong>——信息塞得越多，模型越容易"忽略中间"，这是产品设计时要特别小心的。</p>
+
+        <h3>3. 幻觉：模型会一本正经地胡说</h3>
+        <p>幻觉不是 bug，而是大模型的<strong>概率本质</strong>：它生成的是"最像正确答案的下一个词"，而不是"查证过的正确答案"。所以涉及事实、数字、合规的场景，一定要有兜底——比如检索增强（RAG）、工具调用、或者干脆加一步人工确认。</p>
+
+        <h2>二、能力边界决定产品边界</h2>
+        <p>一句话概括：大模型擅长<strong>生成与转换</strong>，不擅长<strong>精确与事实</strong>。</p>
+        <ul>
+          <li><strong>擅长</strong>：文本生成、总结、分类、改写、翻译、写代码、情感分析。</li>
+          <li><strong>不擅长</strong>：精确计算、实时事实、需要稳定长链推理的任务、需要负责任的决策。</li>
+        </ul>
+        <p>判断一个需求能不能用大模型，最靠谱的办法不是拍脑袋，而是<strong>花半天做个最小原型</strong>，用真实数据跑一跑，看看输出质量是否稳定。</p>
+
+        <h2>三、把技术判断转化为产品决策</h2>
+        <p>判断"这里该不该用大模型"，我一般问自己三个问题：</p>
+        <ol>
+          <li><strong>错误成本高不高？</strong>错了会不会造成损失？客服回答错了，人工能兜底；金融交易错了，就是事故。</li>
+          <li><strong>能不能兜底？</strong>有没有 RAG、工具、人工审核等机制降低风险？</li>
+          <li><strong>用户能否容忍？</strong>是"帮我写个初稿"，还是"给我一个确定的答案"？前者宽容，后者苛刻。</li>
+        </ol>
+        <blockquote><p>能用规则和确定性方法解决的，不必强上大模型；用大模型的，一定为它的不确定性设计好兜底。</p></blockquote>
+
+        <h2>结语</h2>
+        <p>技术是手段，产品是目的。AI 产品经理的核心能力，不是懂模型架构，而是<strong>能把技术能力翻译成用户价值，再把用户价值翻译成可落地的产品决策</strong>。</p>
+        <p>如果你刚开始，我建议先别看书，直接打开一个模型的 API Playground，亲手试几十条 Prompt，感受一下它的"聪明"和"固执"。这比任何文档都直观。</p>
+      </div>
+
+      <footer class="post-foot">
+        <div class="post-tags">
+          <span class="post-tag">#AI 产品</span>
+          <span class="post-tag">#产品方法论</span>
+          <span class="post-tag">#大模型</span>
+        </div>
+        <nav class="post-nav">
+          <span class="prev"></span>
+          <a class="next" href="prompt-as-interface.html">下一篇：大模型时代的产品设计：Prompt 即界面 →</a>
+        </nav>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 MUZI-LI · 用 <span class="accent">♥</span> 与 AI 构建</p>
+    <p class="footer-mono">Design inspired by minimalism &amp; technology</p>
+  </footer>
+
+  <script src="../js/article.js"></script>
+</body>
+</html>

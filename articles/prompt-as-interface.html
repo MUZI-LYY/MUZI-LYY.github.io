@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>大模型时代的产品设计：Prompt 即界面 · MUZI-LI</title>
+  <meta name="description" content="当交互从点击变成对话，产品设计范式正在发生哪些改变。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/article.css" />
+</head>
+<body>
+  <!-- 导航 -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-mark">&lt;/&gt;</span>
+        <span class="logo-text">muzi<span class="accent">.dev</span></span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="../index.html#home" class="nav-link">首页</a>
+        <a href="../index.html#about" class="nav-link">关于</a>
+        <a href="../index.html#articles" class="nav-link active">文章</a>
+        <a href="../index.html#experience" class="nav-link">经历</a>
+        <a href="../index.html#contact" class="nav-link">联系</a>
+      </nav>
+      <button class="menu-btn" id="menu-btn" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="article-page">
+    <article class="post">
+      <a class="back-link" href="../index.html#articles">← 返回文章列表</a>
+
+      <header class="post-head">
+        <span class="post-cat">产品设计</span>
+        <h1 class="post-title">大模型时代的产品设计：Prompt 即界面</h1>
+        <div class="post-byline"><time>2026-04-15</time> · MUZI-LI · 8 分钟阅读</div>
+      </header>
+
+      <div class="post-content">
+        <p>过去二十年，我们做产品设计，本质是在设计<strong>界面</strong>：按钮放在哪、层级怎么分、流程走几步。用户通过"点击"告诉我们他要什么。</p>
+        <p>大模型把这件事悄悄改变了——用户开始用<strong>一句话</strong>描述他想要什么，而模型直接给出结果。界面在退后，意图在提前。</p>
+
+        <h2>一、交互范式的迁移：从 GUI 到对话</h2>
+        <p>传统的图形界面（GUI）依赖<strong>功能可见性</strong>：按钮长什么样，用户就知道能做什么。它的好处是确定、可预期；代价是，用户的意图被框死在预设的功能里。</p>
+        <p>对话式交互则相反：用户用自然语言表达意图，模型去理解并执行。它的好处是<strong>开放、灵活</strong>；代价是，输出不确定，用户不知道该"怎么问"。</p>
+        <p>所以成熟的产品往往是<strong>混合形态</strong>：常用、明确的操作仍保留按钮，开放、模糊的需求交给对话。两者不是替代，而是分工。</p>
+
+        <h2>二、Prompt 即界面的几个设计原则</h2>
+        <p>既然 Prompt 成了新的"界面"，那它也需要像设计界面一样被认真设计。</p>
+
+        <h3>1. 给模型足够的上下文</h3>
+        <p>模型不是你团队里那个"秒懂你"的同事，它需要你把背景、目标、约束都说清楚。模糊的输入，只会得到模糊的输出。</p>
+
+        <h3>2. 明确约束与输出格式</h3>
+        <p>直接告诉模型"输出 JSON""不要超过 200 字""分三条写"，比事后吐槽它"没按我说的来"有效得多。<strong>约束是 Prompt 的一部分，不是附加项。</strong></p>
+
+        <h3>3. 设计"失败体验"</h3>
+        <p>对话式产品最容易被忽视的是失败路径：模型没听懂、答错了、或问了不该问的。好的设计会<strong>引导用户补充信息</strong>、提供可点击的示例、允许一键重试，而不是让用户面对一个冷冰冰的错误。</p>
+
+        <h2>三、产品经理的新职责</h2>
+        <p>当 Prompt 成为产品的一部分，产品经理的角色也在变：</p>
+        <ul>
+          <li><strong>写 Prompt 规范</strong>：沉淀一套团队级的 Prompt 模板与最佳实践。</li>
+          <li><strong>建评估集</strong>：用一批有代表性的问题，持续检验 Prompt 的输出质量。</li>
+          <li><strong>把 Prompt 当资产</strong>：它有版本、要测试、要迭代，和代码一样需要被管理。</li>
+        </ul>
+
+        <h2>结语</h2>
+        <p>"Prompt 即界面"不是一句口号，而是一种提醒：<strong>当用户不再点击按钮，产品的用户体验，就藏在你写下的每一句 Prompt 里。</strong></p>
+      </div>
+
+      <footer class="post-foot">
+        <div class="post-tags">
+          <span class="post-tag">#产品设计</span>
+          <span class="post-tag">#Prompt</span>
+          <span class="post-tag">#交互设计</span>
+        </div>
+        <nav class="post-nav">
+          <a class="prev" href="ai-pm-basics.html">← 上一篇：AI 产品经理的必修课</a>
+          <a class="next" href="ai-poc-to-production.html">下一篇：AI 产品落地：从 PoC 到规模化应用的三个关键 →</a>
+        </nav>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 MUZI-LI · 用 <span class="accent">♥</span> 与 AI 构建</p>
+    <p class="footer-mono">Design inspired by minimalism &amp; technology</p>
+  </footer>
+
+  <script src="../js/article.js"></script>
+</body>
+</html>
