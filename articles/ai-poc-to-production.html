@@ -8,33 +8,32 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="../css/article.css" />
 </head>
 <body>
-  <!-- 导航 -->
-  <header class="nav">
-    <div class="nav-inner">
-      <a href="../index.html" class="logo">
-        <span class="logo-mark">&lt;/&gt;</span>
-        <span class="logo-text">muzi<span class="accent">.dev</span></span>
+  <a class="skip-link" href="#article">跳到文章正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../index.html#top" aria-label="MUZI 首页">
+        <span class="brand-avatar" aria-hidden="true">M</span><span>Hi, MUZI</span>
       </a>
-      <nav class="nav-links" id="nav-links">
-        <a href="../index.html#home" class="nav-link">首页</a>
-        <a href="../index.html#about" class="nav-link">关于</a>
-        <a href="../index.html#articles" class="nav-link active">文章</a>
-        <a href="../index.html#experience" class="nav-link">经历</a>
-        <a href="../index.html#contact" class="nav-link">联系</a>
-      </nav>
-      <button class="menu-btn" id="menu-btn" aria-label="菜单">
-        <span></span><span></span><span></span>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>
+        <span>菜单</span><span class="menu-icon" aria-hidden="true"></span>
       </button>
+      <nav class="site-nav" id="site-nav" aria-label="主导航" data-nav>
+        <a href="../index.html#top">首页</a>
+        <a href="../index.html#work">项目</a>
+        <a class="is-active" href="../index.html#writing">文章</a>
+        <a href="../index.html#about">关于</a>
+        <a href="../index.html#contact">联系</a>
+      </nav>
     </div>
   </header>
 
-  <main class="article-page">
+  <main class="article-page" id="article">
     <article class="post">
-      <a class="back-link" href="../index.html#articles">← 返回文章列表</a>
+      <a class="back-link" href="../index.html#writing">← 返回文章列表</a>
 
       <header class="post-head">
         <span class="post-cat">AI 落地</span>
@@ -85,11 +84,12 @@
     </article>
   </main>
 
-  <footer class="footer">
-    <p>© 2026 MUZI-LI · 用 <span class="accent">♥</span> 与 AI 构建</p>
-    <p class="footer-mono">Design inspired by minimalism &amp; technology</p>
+  <footer class="site-footer article-footer section-shell">
+    <span>© <span data-year>2026</span> MUZI</span>
+    <span>AI 产品 · 独立开发 · 长期创造</span>
+    <a href="#article">回到顶部 ↑</a>
   </footer>
 
-  <script src="../js/article.js"></script>
+  <script src="../main.js"></script>
 </body>
 </html>
