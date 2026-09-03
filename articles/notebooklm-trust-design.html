@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>NotebookLM 产品拆解：AI 知识产品如何建立用户信任？ · MUZI-LI</title>
+  <meta name="description" content="从同页 Sources、Chat、Audio 出现“2—0—2 个来源”的不一致切入，拆解 NotebookLM 如何通过知识边界、证据验证和成果溯源建立信任，并整理一套适用于知识库、RAG、研究助手和企业问答的信任链检查框架。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://miaoda.feishu.cn">
+  <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap">
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../home-reference.css" />
+  <link rel="stylesheet" href="../css/article.css?v=20260903-1" />
+</head>
+<body class="home-page article-detail-page">
+  <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="progress" id="progressBar" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html#top" aria-label="返回 MUZI-LI 首页">
+        MUZI-LI<span class="dot">.</span><span class="brand-dev">dev</span>
+      </a>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+        <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+        <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+        <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+        <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+      </nav>
+
+      <div class="nav-right">
+        <a class="btn-ghost" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer" aria-label="打开 MUZI-LI 的 GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <button class="nav-burger" id="burger" type="button" aria-label="打开菜单" aria-controls="mobileMenu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+    <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+    <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+    <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+    <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+  </div>
+
+  <main class="article-page" id="article">
+    <article class="post">
+      <a class="back-link" href="index.html">← 返回文章列表</a>
+
+      <header class="post-head">
+        <span class="post-cat">AI 产品拆解</span>
+        <h1 class="post-title">NotebookLM 产品拆解：AI 知识产品如何建立用户信任？</h1>
+        <div class="post-byline"><time datetime="2026-08-19">2026-08-19</time> · MUZI-LI · 16 分钟阅读</div>
+      </header>
+
+      <div class="post-content">
+        <blockquote><p>从同一页面出现“2 个、0 个、2 个来源”说起</p></blockquote>
+
+        <p>我最近在拆解 NotebookLM 时，遇到了一个很小、却让我停下来反复确认的现象。</p>
+        <p>在同一个 Notebook 里，左侧 Sources 显示两个有效来源已经选中，中间 Chat 却显示“0 个来源”，右侧已有的 Audio Overview 又标注使用了两个来源。</p>
+        <p>同一份资料，在三个区域里出现了三个看起来互相冲突的状态。</p>
+        <p>这可能只是展示口径不同，也可能是页面刷新、历史快照或状态同步造成的。仅凭界面，我无法判断 NotebookLM 的后台究竟发生了什么。但站在用户角度，问题已经出现了：接下来的回答到底依据哪几份资料？已经生成的音频和当前选中的资料，又是不是同一批？</p>
+        <p>如果这只是一个普通内容生成工具，来源数字不一致或许只是界面瑕疵。但 NotebookLM 的核心承诺，恰恰是围绕用户提供的资料进行理解、问答和内容生成。资料边界一旦变得含糊，用户对答案的信任也会跟着松动。</p>
+        <p>所以这次我不准备把 NotebookLM 的功能逐个列一遍，而是想借这次体验回答一个更具体的问题：<strong>一个基于用户资料工作的 AI 产品，究竟应该怎样让用户相信它？</strong></p>
+        <p>我的判断是，信任不能只靠“回答后面有引用”。它至少包含三个连续的环节：</p>
+        <ol>
+          <li>用户知道 AI 可以看什么、这一次实际用了什么；</li>
+          <li>用户能快速确认某个结论由哪段证据支持；</li>
+          <li>回答变成笔记、音频等成果后，仍然可以追溯到生成时的来源。</li>
+        </ol>
+        <p>也就是：<strong>知识边界清楚、回答证据可验证、生成成果可追溯。</strong></p>
+
+        <h2>一、NotebookLM 交付的不是一次回答，而是一条研究链路</h2>
+        <p>如果只看 Chat，NotebookLM 很容易被理解成“上传文档后就能提问”的聊天工具。但把 Sources、Chat 和 Studio 放在一起看，它交付的其实是一条更长的任务链路。</p>
+        <p>在我检查的这个 Notebook 中，来源区里有一个 PDF、一个 DOCX，以及一个抓取失败的网页。有效来源可以被选择，也可以打开查看自动生成的 Source Guide、摘要和正文。</p>
+        <p>进入 Chat 后，用户可以围绕资料提问。当前记录里有两个问题：一个询问 agentic orchestration 对创始人角色的影响，另一个询问“什么是 RAG”。两个回答都采用了结构化长文本，并在具体结论后标出数字引用。</p>
+        <p>继续往下，回答可以保存成笔记。Studio 中还能看到 Audio Overview，以及思维导图、视频、幻灯片、测验等生成入口。</p>
+        <p>把这些动作连起来，NotebookLM 的基本任务就不只是“给我一个答案”，而是：</p>
+        <blockquote><p>添加或发现资料 → 理解资料 → 基于资料提问 → 核验引用 → 保存结论 → 生成新的内容成果</p></blockquote>
+        <p>这条链路为什么重要？因为在普通聊天产品里，用户主要判断答案“听起来对不对”；在研究和知识场景里，用户还需要判断答案“根据什么得出”“能不能复核”“后续成果有没有偏离原始资料”。</p>
+        <p>模型输出只是链路中间的一步。真正决定产品是否可信的，是资料、回答、证据和成果之间的关系，能不能持续被用户看见。</p>
+
+        <h2>二、第一层信任：用户能否看懂 AI 的知识边界？</h2>
+        <p>对基于资料回答的 AI 产品来说，来源选择不是普通筛选项，而是一份产品契约。</p>
+        <p>当用户勾选两份资料时，他自然会形成一个预期：AI 接下来的回答应该被限制在这两份资料里。如果问题只与其中一份有关，系统可以只调用相关内容；如果资料不足，也应该明确告诉用户，而不是悄悄用其他知识把答案补齐。</p>
+        <p>在这次体验里，两个问题虽然发生在同一个 Notebook 中，但引用结果不同。关于创始人角色的问题只引用了 PDF，关于 RAG 的问题只引用了 DOCX。这个可观察结果至少说明，系统没有机械地把全部来源都堆进回答，而是在不同问题下取用了语义相关的资料。</p>
+        <p>从产品角度看，这一步解决了两个问题。</p>
+        <p>第一，用户可以先用来源选择划定讨论范围。第二，系统可以在这个范围内进一步寻找与问题有关的证据。前者回答“允许看什么”，后者回答“这一次用了什么”。</p>
+        <p>麻烦也出在这里。</p>
+        <p>页面同时出现 Sources 为 2、Chat 为 0、Audio 为 2。它们可能表达的并不是同一个概念：Sources 可能表示当前有效且已选中的资料，Chat 的数字可能来自另一套状态，Audio 则可能记录生成时使用的来源快照。也可能其中某个区域没有及时刷新。</p>
+        <p>这些都只是可能解释，当前证据无法确认真正原因。但用户不应该依靠猜测理解产品状态。</p>
+        <p>如果“0 个来源”代表当前问答不会使用任何资料，那它与左侧的选中状态冲突；如果它只是某个历史状态或显示异常，产品也没有向用户解释。无论后台属于哪种情况，前台都没有清楚回答最重要的问题：<strong>我现在问出的这句话，AI 准备依据什么来回答？</strong></p>
+        <p>这也是为什么我更愿意把它看成信任问题，而不只是数字显示问题。</p>
+        <p>一个更清楚的设计，至少应该区分两种状态：</p>
+        <ul>
+          <li><strong>当前来源集合</strong>：用户现在选择了哪些资料，下一次问答准备在哪个范围内进行；</li>
+          <li><strong>生成时来源快照</strong>：某条回答、某个音频在生成的那一刻，实际绑定了哪些资料。</li>
+        </ul>
+        <p>“当前选择”会变化，“生成快照”则应该保持稳定。只有这样，用户才能理解为什么修改来源后，历史回答和已有成果不会自动变成另一个版本。</p>
+        <p>对于产品经理来说，这背后还对应一个更基础的问题：Sources、Chat 和 Studio 展示的来源状态，是否来自同一个事实口径？如果三个区域各自保存一份数量，或者分别使用实时状态与历史状态，却没有明确命名，就很容易出现同一页面各说各话。</p>
+        <p>因此，知识产品信任链的第一步，不是增加更多提示词，也不是把引用颜色做得更显眼，而是让用户看清知识边界。</p>
+
+        <h2>三、第二层信任：有引用，不等于容易验证</h2>
+        <p>知识边界解决了“AI 看了什么”，接下来还要回答“它说的话是否真有证据”。</p>
+        <p>NotebookLM 已经把引用做成了回答的一部分。数字引用紧跟在结论后，点击后可以看到来源名称、原文片段和进一步查看原文的入口。与只在回答末尾列出几个链接相比，这种方式更接近真实的证据核验。</p>
+        <p>但在我打开两处代表性引用后，也看到了两种不同情况。</p>
+        <p>第一处来自 PDF。回答提到，AI 原生环境下的创始人角色会从手动执行者转向更高层的统筹者。引用原文谈到传统创始人的执行模式，以及 AI 如何让创建者转向提出想法、指挥 AI、工具和小团队。这里的回答与原文语义基本一致，可以认为是直接支持。</p>
+        <p>第二处来自 RAG 文档。回答将企业 RAG 概括为离线和在线两个部分，引用打开后展示的是一段范围更宽的架构内容，其中除了这两个部分，还包含其他阶段。它与回答相关，也能支持核心组件，但用户仍要自己从较大的片段里判断哪一部分对应当前结论。</p>
+        <p>这两种情况说明，“有引用”至少还可以继续拆成三个层次：</p>
+        <ol>
+          <li><strong>引用存在</strong>：回答后面有编号或链接；</li>
+          <li><strong>引用相关</strong>：打开的内容与回答讨论的是同一个主题；</li>
+          <li><strong>引用直接支持</strong>：具体证据能够清楚支撑前面的具体结论。</li>
+        </ol>
+        <p>很多产品完成了第一层，就默认用户已经获得信任。但对需要认真使用答案的人来说，后两层才决定引用有没有实际价值。</p>
+        <p>核验过程本身也会影响体验。当前页面点击引用后，会同时出现引用详情和来源原文定位；关闭浮层后，Sources 仍停留在原文详情，用户还要再返回一次才能恢复之前的浏览状态。引用多的时候，用户会在回答、浮层和来源面板之间反复切换。</p>
+        <p>这并不意味着引用越少越好。真正需要减少的，是每次核验的上下文切换成本。</p>
+        <p>如果让我为这类产品设计引用体验，我会重点检查四件事：</p>
+        <ul>
+          <li>回答中的哪一句，对应来源中的哪一段；</li>
+          <li>片段是直接支持、间接相关，还是只能提供背景；</li>
+          <li>哪些重要结论没有找到足够证据；</li>
+          <li>用户核验完成后，能否顺畅回到原来的阅读位置。</li>
+        </ul>
+        <p>例如，可以在回答句子与证据片段之间做更明确的高亮映射；当引用范围较宽时，优先展示真正支持结论的句子，而不是一整块内容；来源标题也要在列表、引用标签和原文页中保持一致。</p>
+        <p>这样做不是为了把界面变得更复杂，而是把判断权还给用户。AI 不需要反复声明“我的回答基于你的资料”，产品只需要让用户能低成本验证这件事。</p>
+
+        <h2>四、第三层信任：回答变成音频后，证据链还在吗？</h2>
+        <p>如果 NotebookLM 只提供问答，信任链到引用为止或许就够了。但 Studio 把资料继续转换成笔记、音频、视频、幻灯片等成果后，问题又向前走了一步。</p>
+        <p>这次体验里，两条 Chat 回答后来都以“已保存的回复”出现在 Studio 中。打开笔记后，可以看到内容与原回答一致，引用也被保留下来。从用户视角看，这条链路相对清楚：笔记来自哪次回答，回答又引用了哪份资料。</p>
+        <p>Audio Overview 的情况不同。</p>
+        <p>现有音频卡片显示时长为 1 分 31 秒，并标注使用了两个来源。但进入播放器后，时间显示为 00:00/00:00。页面没有明确告诉用户，它是在等待加载、媒体已经失效，还是需要执行其他操作。</p>
+        <p>这次记录没有成功播放并核对音频内容，因此不能据此判断 NotebookLM 的音频质量，也不能断言这个成果一定不可用。能够确认的只有两点：卡片与播放器展示的状态不一致；用户缺少足够信息判断下一步该等待、重试还是退出。</p>
+        <p>另一个问题是，音频卡片只告诉用户“使用了两个来源”，却没有直接列出具体名称。假如 Notebook 中的资料后来被替换、同步更新或取消选择，用户很难仅凭当前页面判断：这个音频使用的是现在的来源，还是生成时的旧版本？</p>
+        <p>对 AI 生成成果来说，“内容已经生成”并不是任务的终点。至少还要回答：</p>
+        <ul>
+          <li>它基于哪些来源生成；</li>
+          <li>使用的是来源的哪个版本；</li>
+          <li>用户选择了什么语言、长度或风格；</li>
+          <li>成果是什么时候创建的；</li>
+          <li>原始资料发生变化后，它是否已经过期；</li>
+          <li>当前文件究竟是生成中、可用、加载失败还是已经失效。</li>
+        </ul>
+        <p>这些信息可以被组织成一张简洁的“成果溯源卡”。普通用户未必需要看到模型名称和每个内部参数，但他应该能够确认输入范围、创建时间和当前状态。</p>
+        <p>这也是知识产品与一般内容生成工具的区别。内容越往下游流转，离原始资料越远，越需要产品主动保留来路。否则，一条有证据的回答经过保存、改写和多模态生成后，可能变成一个看起来完整、却很难再验证的孤立成果。</p>
+
+        <h2>五、三个体验问题背后，是同一个产品问题</h2>
+        <p>到这里，来源数量不一致、引用落点较宽、音频状态含糊，看起来是三个不同模块的问题。把完整任务连起来后，它们其实都在追问同一件事：<strong>产品能否把一次研究任务中的来源、回答、证据和成果，连接成一条用户看得懂的状态链？</strong></p>
+        <p>为了理解这条链路，我把标准问答部分抽象成一个简单模型：</p>
+        <blockquote><p>用户问题 → 当前来源范围 → 相关内容检索 → 回答与引用 → 保存或生成 → 笔记、音频等成果</p></blockquote>
+        <p>在这个模型里，核心知识助手负责理解问题并组织回答，来源检索和引用定位属于工具能力，Notebook 保存当前来源、聊天记录、引用和成果等上下文，Studio 则把资料转成不同形式的内容。</p>
+        <p>这只是基于产品行为的分析模型，不代表 NotebookLM 真实采用了这样的后台架构。尤其不能因为页面上有很多 AI 功能，就把每一个入口都叫作 Agent。当前实测更像是一个核心问答能力配合来源、引用和保存工具，而 Studio 中的音频等能力由用户主动触发生成。</p>
+        <p>这个区分对产品设计很重要，因为三类问题的解决方式不同。</p>
+        <p>如果只是回答语气或格式不合适，可以从提示和生成配置入手；如果系统不知道应该读取哪些资料，需要处理来源范围和检索；如果回答已经生成但引用没有写入，或者成果卡存在但媒体不能读取，那就是任务状态和交接问题。</p>
+        <p>后两类通常不是改一句 Prompt 能解决的。</p>
+        <p>它们需要产品为一次任务保留稳定的输入快照，明确每一步是等待、执行、完成还是失败，并让最终成果与当时的资料建立关系。界面只是把这些状态表达给用户；如果状态本身没有统一口径，再好的文案也只能暂时遮住问题。</p>
+        <p>所以，AI 产品的体验设计不能只关注“模型输出得好不好”。还要看模型前面的输入是否明确、工具执行是否成功、结果有没有正确写回，以及失败后用户是否知道怎样继续。</p>
+
+        <h2>六、给 AI 产品经理的一套“信任链”检查框架</h2>
+        <p>NotebookLM 的这次体验，最终可以整理成一套适用于知识库、RAG、研究助手和企业问答产品的检查框架。</p>
+
+        <h3>1. 知识边界：AI 这一次到底能看什么？</h3>
+        <p>需要检查的问题包括：</p>
+        <ul>
+          <li>用户是否能看到当前选择了哪些来源；</li>
+          <li>无效、失败和无权限的来源是否被清楚排除；</li>
+          <li>每条回答是否绑定生成时的来源集合；</li>
+          <li>来源变化后，历史回答会保持不变、标记过期，还是自动更新；</li>
+          <li>页面不同区域的来源名称和数量是否一致。</li>
+        </ul>
+        <p>这一层可以关注来源状态一致率、无效来源误用率，以及用户是否因为边界不清而重复选择来源、重新提问或中途退出。</p>
+
+        <h3>2. 证据验证：用户能不能快速判断“它说得有没有依据”？</h3>
+        <p>需要检查的问题包括：</p>
+        <ul>
+          <li>关键事实和结论是否有引用；</li>
+          <li>引用是主题相关，还是能直接支持对应结论；</li>
+          <li>点击后能否定位到准确片段；</li>
+          <li>来源标题、版本和原文位置是否一致；</li>
+          <li>核验完成后，用户能否回到原来的阅读位置。</li>
+        </ul>
+        <p>可观察的指标不应只有“引用数量”。更值得关注的是关键结论引用覆盖率、引用定位准确率、用户完成一次核验所需的操作步数，以及用户打开引用后是否继续使用、改写问题或放弃任务。</p>
+
+        <h3>3. 成果溯源：生成内容离开 Chat 后，还能不能找到来路？</h3>
+        <p>需要检查的问题包括：</p>
+        <ul>
+          <li>笔记、报告、音频和幻灯片是否列出具体来源；</li>
+          <li>是否记录生成时的来源版本与配置；</li>
+          <li>来源更新或失效后，成果是否出现过期提示；</li>
+          <li>卡片状态和查看器、播放器状态是否一致；</li>
+          <li>生成失败后能否诊断、重试或更换来源。</li>
+        </ul>
+        <p>这一层可以关注成果来源可追溯率、生成成功但无法读取或播放的比例、失败恢复率，以及来源变化后过期成果的识别率。</p>
+        <p>如果资源有限，我会按照下面的顺序处理。</p>
+        <p>第一优先级是统一知识边界。因为用户不知道 AI 使用了什么，后面的引用和成果都失去了判断起点。</p>
+        <p>第二优先级是降低引用核验成本。用户已经愿意点击引用，说明信任仍在建立过程中，这时应让证据更加精确，而不是让用户自己在长文里寻找支持内容。</p>
+        <p>第三优先级是补齐成果溯源和状态反馈。多模态成果越多，这一层越重要；否则能力入口增加了，用户管理和验证成果的成本也会一起增加。</p>
+        <p>这三个优先级并不是只适用于 NotebookLM。任何承诺“基于你的资料回答”的产品，都可以用同样的问题检查：边界是否清楚、证据是否好验证、成果是否找得到来路。</p>
+
+        <h2>结语：可信不是让模型自己证明自己</h2>
+        <p>回头看最开始的“2—0—2 个来源”，我仍然无法仅凭页面确认它究竟来自展示问题、快照差异，还是其他状态没有同步。</p>
+        <p>但这并不妨碍我们做出一个产品判断：当产品把“基于用户资料”作为价值的一部分时，资料范围本身就应该成为清楚、稳定、可追溯的产品信息。</p>
+        <p>模型可以生成流畅的答案，也可以在答案后面加上引用。可用户最终是否相信它，取决于产品有没有帮助他看清三件事：这次用了什么资料，这个结论由什么支持，这个成果后来有没有离开原来的证据。</p>
+        <p>AI 知识产品的可信度，不是模型在回答里说一句“根据你的资料”就能完成的。它需要被设计进完整的任务链路里。</p>
+
+        <hr>
+
+        <h2>体验与来源说明</h2>
+        <ul>
+          <li>本文体验记录来自 2026 年 8 月 16 日对一个具体 Notebook 的检查，样本包括两个有效来源、一个失败网页来源、两条历史问答、两处代表性引用、两条已保存回复和一个 Audio Overview。单次样本只能支持对这条体验链路的分析，不代表 NotebookLM 所有场景和版本的普遍表现。</li>
+          <li>本文沿用体验材料中的“NotebookLM”名称。截至 2026 年 8 月 19 日，Google 官方帮助中心页面已使用“Gemini Notebook”名称。</li>
+          <li>官方资料参考：
+            <ul>
+              <li><a href="https://support.google.com/gemininotebook/answer/16179559?hl=en">Use chat in Gemini Notebook</a></li>
+              <li><a href="https://support.google.com/gemininotebook/answer/16215270?hl=en">Add or discover new sources for your notebook</a></li>
+              <li><a href="https://support.google.com/gemininotebook/answer/16262519?hl=en">Create &amp; add notes in Gemini Notebook</a></li>
+              <li><a href="https://support.google.com/gemininotebook/answer/16212820?hl=en">Generate Audio Overview in Gemini Notebook</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <footer class="post-foot">
+        <div class="post-tags">
+          <span class="post-tag">#AI 产品拆解</span>
+          <span class="post-tag">#信任设计</span>
+          <span class="post-tag">#NotebookLM</span>
+        </div>
+        <nav class="post-nav">
+          <a class="prev" href="ai-agent-safety-gates.html">← 上一篇：AI Agent 上线前的五道安全闸门</a>
+          <a class="next" href="prompt-to-skill-task-loop.html">下一篇：从 Prompt 到 Skill →</a>
+        </nav>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container foot">
+      <div class="foot-left">© <span data-year>2026</span> <span class="accent">MUZI-LI.dev</span> · Built with HTML / CSS / JS</div>
+      <div class="foot-motto">把 AI 做成真正有人用的产品。</div>
+      <div class="foot-links">
+        <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="../index.html#about">关于</a>
+        <a href="../index.html#top">返回首页</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="../home-reference.js?v=20260903-3"></script>
+</body>
+</html>

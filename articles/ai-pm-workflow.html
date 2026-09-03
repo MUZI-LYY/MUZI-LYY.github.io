@@ -3,42 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
   <title>如何用 AI 重构产品经理的日常工作流 · MUZI-LI</title>
   <meta name="description" content="需求分析、文档、评审……让 AI 成为产品经理的日常副驾。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://miaoda.feishu.cn">
+  <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap">
   <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="../css/article.css" />
+  <link rel="stylesheet" href="../home-reference.css" />
+  <link rel="stylesheet" href="../css/article.css?v=20260903-1" />
 </head>
-<body>
+<body class="home-page article-detail-page">
   <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="progress" id="progressBar" aria-hidden="true"></div>
+
   <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="../index.html#top" aria-label="MUZI 首页">
-        <span class="brand-avatar" aria-hidden="true">M</span><span>Hi, MUZI</span>
+    <div class="container nav">
+      <a class="brand" href="../index.html#top" aria-label="返回 MUZI-LI 首页">
+        MUZI-LI<span class="dot">.</span><span class="brand-dev">dev</span>
       </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>
-        <span>菜单</span><span class="menu-icon" aria-hidden="true"></span>
-      </button>
-      <nav class="site-nav" id="site-nav" aria-label="主导航" data-nav>
-        <a href="../index.html#top">首页</a>
-        <a href="../index.html#work">项目</a>
-        <a class="is-active" href="../index.html#writing">文章</a>
-        <a href="../index.html#about">关于</a>
-        <a href="../index.html#contact">联系</a>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+        <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+        <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+        <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+        <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
       </nav>
+
+      <div class="nav-right">
+        <a class="btn-ghost" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer" aria-label="打开 MUZI-LI 的 GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <button class="nav-burger" id="burger" type="button" aria-label="打开菜单" aria-controls="mobileMenu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+    <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+    <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+    <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+    <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+  </div>
+
   <main class="article-page" id="article">
     <article class="post">
-      <a class="back-link" href="../index.html#writing">← 返回文章列表</a>
+      <a class="back-link" href="index.html">← 返回文章列表</a>
 
       <header class="post-head">
         <span class="post-cat">效率</span>
         <h1 class="post-title">如何用 AI 重构产品经理的日常工作流</h1>
-        <div class="post-byline"><time>2025-12-05</time> · MUZI-LI · 6 分钟阅读</div>
+        <div class="post-byline"><time>2025-12-05</time> · MUZI-LI · 3 分钟阅读</div>
       </header>
 
       <div class="post-content">
@@ -76,20 +96,26 @@
           <span class="post-tag">#工作流</span>
           <span class="post-tag">#AI 工具</span>
         </div>
-        <nav class="post-nav">
-          <a class="prev" href="ai-poc-to-production.html">← 上一篇：AI 产品落地：从 PoC 到规模化应用的三个关键</a>
-          <span class="next"></span>
-        </nav>
       </footer>
     </article>
   </main>
 
-  <footer class="site-footer article-footer section-shell">
-    <span>© <span data-year>2026</span> MUZI</span>
-    <span>AI 产品 · 独立开发 · 长期创造</span>
-    <a href="#article">回到顶部 ↑</a>
+  <footer class="site-footer">
+    <div class="container foot">
+      <div class="foot-left">© <span data-year>2026</span> <span class="accent">MUZI-LI.dev</span> · Built with HTML / CSS / JS</div>
+      <div class="foot-motto">把 AI 做成真正有人用的产品。</div>
+      <div class="foot-links">
+        <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="../index.html#about">关于</a>
+        <a href="../index.html#top">返回首页</a>
+      </div>
+    </div>
   </footer>
 
-  <script src="../main.js"></script>
+  <button class="to-top" id="toTop" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="../home-reference.js?v=20260903-3"></script>
 </body>
 </html>

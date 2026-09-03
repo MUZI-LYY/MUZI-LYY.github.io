@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>从 Prompt 到 Skill：AI 产品经理如何设计一个可交付的任务闭环 · MUZI-LI</title>
+  <meta name="description" content="从任务边界、人机分工、验收与迭代出发，拆解如何把一次性 Prompt 设计成可重复交付的 Skill 任务闭环。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://miaoda.feishu.cn">
+  <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap">
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../home-reference.css" />
+  <link rel="stylesheet" href="../css/article.css?v=20260903-1" />
+</head>
+<body class="home-page article-detail-page">
+  <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="progress" id="progressBar" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html#top" aria-label="返回 MUZI-LI 首页">
+        MUZI-LI<span class="dot">.</span><span class="brand-dev">dev</span>
+      </a>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+        <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+        <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+        <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+        <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+      </nav>
+
+      <div class="nav-right">
+        <a class="btn-ghost" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer" aria-label="打开 MUZI-LI 的 GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <button class="nav-burger" id="burger" type="button" aria-label="打开菜单" aria-controls="mobileMenu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+    <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+    <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+    <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+    <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+  </div>
+
+  <main class="article-page" id="article">
+    <article class="post">
+      <a class="back-link" href="index.html">← 返回文章列表</a>
+
+      <header class="post-head">
+        <span class="post-cat">AI 产品</span>
+        <h1 class="post-title">从 Prompt 到 Skill：AI 产品经理如何设计一个可交付的任务闭环</h1>
+        <div class="post-byline"><time datetime="2026-08-18">2026-08-18</time> · MUZI-LI · 12 分钟阅读</div>
+      </header>
+
+      <div class="post-content">
+        <p>假设我们要设计一个“把教案制作成HTML课件”的Skill。</p>
+
+        <p>第一版看起来并不难：读取教案，整理内容，规划页面，生成HTML文件。只要AI最后交出一个能打开的页面，任务是不是就完成了？</p>
+
+        <p>未必。</p>
+
+        <p>它可能把面向小学生的教案做成文字密集的成人课件，也可能在没有确认使用场景的情况下，直接选择不合适的页面尺寸。文件虽然生成了，用户真正想完成的任务却没有完成。</p>
+
+        <p>这类问题很难靠一句“请认真理解用户需求”解决。继续补充规则，也不一定会让结果更稳定。因为问题已经不只是AI会不会生成HTML，而是系统能不能识别正确的任务、拿到必要的信息、在合适的地方让用户决定，并且知道什么结果才算合格。</p>
+
+        <p>从这个角度看，AI产品的最小单位不是一个功能，而是一个能够重复交付、可以验收、能够持续迭代的任务闭环。</p>
+
+        <p>写Skill，就是在设计这样一个闭环。</p>
+
+        <h2>一、从Prompt到Skill，任务责任发生了变化</h2>
+
+        <p>一条Prompt通常从一个已经说清楚的任务开始。</p>
+
+        <p>“把下面这段内容整理成三个要点”“将这封邮件改得更礼貌”，这些需求的输入、动作和输出基本都在当前对话里。即使结果不理想，用户也可以马上补充一句，再调整一次。</p>
+
+        <p>Skill承担的责任更大。它面对的不再是一条固定指令，而是一类会重复出现、表达方式可能不同、信息也不一定完整的任务。它要判断当前需求是否适用，缺少什么信息，按照什么顺序执行，哪里需要确认，以及什么结果可以交付。</p>
+
+        <p>所以，判断一个任务是否值得做成Skill，至少要先问四个问题：</p>
+
+        <ol>
+          <li>这类任务会重复出现吗？</li>
+          <li>它是否存在相对稳定的处理流程？</li>
+          <li>我们能否定义明确的完成标准？</li>
+          <li>它带来的效率或质量提升，值得后续维护吗？</li>
+        </ol>
+
+        <p>这里最容易被忽略的是第三个问题。</p>
+
+        <p>如果我们只能说“结果看起来不错”，却说不清不错在哪里，那么Skill只是把一种不稳定的生成方式保存了下来。它可能更方便调用，却没有因此变得更像产品。</p>
+
+        <p>还是以教案转课件为例。真正要交付的是“适合特定教学对象和使用场景、能够正常展示的课件”。“生成一个HTML文件”只描述了产物，没有说明用户、场景和成功标准。</p>
+
+        <p>这也是Prompt升级为Skill的临界点：AI不再只负责回答当前问题，而是开始对一类任务的完整交付负责。</p>
+
+        <h2>二、Skill更像一份可执行的任务契约</h2>
+
+        <p>普通操作说明重点回答“应该怎么做”。但要让一类任务稳定交付，只写执行步骤还不够。</p>
+
+        <p>AI产品经理还要把用户、AI和工具之间容易产生分歧的地方提前说清楚。可以把这些内容理解为五份任务契约。</p>
+
+        <h3>1.触发契约：什么任务应该被接住</h3>
+
+        <p>“制作课件”的范围很宽。根据教案生成HTML课件、修改已有PPT、制作一张活动海报，看起来都和课件有关，但处理流程并不相同。</p>
+
+        <p>触发范围太窄，用户没有说出标准关键词时，Skill可能无法识别需求；范围太宽，不相关的任务又会被塞进同一套流程。产品经理需要比较误触发和漏触发分别会带来多大损失，而不只是继续补充描述。</p>
+
+        <p>内容整理一类低风险任务，可以允许系统多接住一些模糊表达；涉及删除、发送或付费的任务，触发条件则应该更谨慎。触发设计本身就是一次产品取舍。</p>
+
+        <h3>2.输入契约：开始前必须知道什么</h3>
+
+        <p>教案内容是制作课件的必要输入，目标学生、使用场景和页面要求也可能直接改变结果。但这些信息的重要程度并不一样。</p>
+
+        <p>输入契约要区分三类信息：没有就不能继续的信息、缺少时应该询问的信息，以及可以采用默认值的信息。如果所有信息都向用户追问，自动化就失去了意义；如果什么都不问，AI又可能在关键问题上替用户做决定。</p>
+
+        <h3>3.权限契约：谁拥有决定权</h3>
+
+        <p>AI可以整理章节、压缩文字、比较不同结构，也可以在几个合理方案之间给出建议。但目标读者是谁、是否使用隐私材料、是否提交发布，这些决定不能仅仅因为AI“能够判断”就交给它。</p>
+
+        <p>能力边界回答AI能做什么，权限边界回答AI可以替用户决定什么。两者并不是同一个问题。</p>
+
+        <h3>4.交付契约：做到什么程度才算完成</h3>
+
+        <p>“已生成课件”不是验收标准。更可检查的标准应该包括：文件能否正常打开、章节是否完整、页面是否溢出、关键内容是否遗漏，以及最终格式是否符合使用场景。</p>
+
+        <p>交付契约越模糊，AI越容易把“产生了输出”当成“完成了任务”。</p>
+
+        <h3>5.失败契约：做不下去时怎么办</h3>
+
+        <p>文件读取失败、教案缺少正文、生成页面无法渲染，处理方式不应该都是“继续尝试”。有些问题需要补充信息，有些需要回到上一步，有些应该更换工具，还有些应该停止并把原因告诉用户。</p>
+
+        <p>一份成熟的Skill不仅描述成功路径，也应该让失败变得可发现、可解释、可恢复。</p>
+
+        <p>这五份契约放在一起，Skill就不再只是写给AI看的操作说明。它更像一份会直接参与运行的产品定义：边界怎么划、决定权怎么分、结果怎么验收，都会影响AI下一步实际做什么。</p>
+
+        <h2>三、AI产品经理真正要分配的，是不确定性</h2>
+
+        <p>设计Skill时，经常会遇到一个问题：规则到底应该写多细？</p>
+
+        <p>写得太少，AI每次可能走不同路径；写得太细，流程又会变得僵硬，换一个输入就无法适应。这个问题很难通过“尽量详细”或“给AI更多自由”解决，因为不同环节的不确定性来源并不相同。</p>
+
+        <p>更合适的做法，是把不确定性分配给四种处理方式。</p>
+
+        <ul>
+          <li>稳定、明确、不能随意改变的要求交给规则。例如输出文件类型、禁止覆盖原文件。</li>
+          <li>需要理解语义、存在多种合理答案的任务交给模型。例如提炼重点、调整表达和规划内容结构。</li>
+          <li>影响较大、难以撤回或依赖个人偏好的决定交还用户。例如选择发布平台、使用隐私信息和提交外部系统。</li>
+          <li>依赖实时数据、身份权限或外部操作的任务交给工具。例如读取业务数据、验证账号和执行发布。</li>
+        </ul>
+
+        <p>这四种方式没有高低之分，它们解决的是不同类型的问题。</p>
+
+        <p>判断一个环节是否需要用户确认，可以看三个维度：错误会造成多大影响、操作是否容易撤回，以及AI当前判断有多不确定。这不是一个需要精确计算的公式，而是一种产品检查方法。</p>
+
+        <p>如果影响低、结果容易修改，可以让AI先完成，再由用户检查。如果影响较高但能够撤回，可以在执行后提供清楚的修改入口。如果影响高且难以撤回，就应该在执行前获得明确确认。如果连任务目标都无法判断，系统首先要做的不是执行，而是追问。</p>
+
+        <p>以教案转课件为例，AI可以根据内容自行调整单页文字密度，也可以判断哪些段落适合转成图示。但面向哪个年龄段、最终用于课堂展示还是课后阅读，会直接影响整套课件，缺少这些信息时就应该询问用户。至于覆盖原文件或直接发布，则需要更加明确的授权。</p>
+
+        <p>这里的难点在于，确认并不是越多越安全。每增加一次询问，都会增加用户的操作成本；每减少一次询问，又可能增加误判和返工。AI产品经理需要找的不是“最自动”的流程，而是在效率、风险和控制感之间更合适的分工。</p>
+
+        <h2>四、生成结果不等于完成任务，验收必须进入设计</h2>
+
+        <p>传统功能的输入和输出通常比较确定，测试时可以检查按钮是否生效、数据是否正确。生成式AI的结果存在变化，同样的输入不一定每次都得到完全相同的过程和产物。</p>
+
+        <p>Skill仍然可以测试，只是不能要求每次生成完全相同的句子，重点应该放在关键行为是否符合预期。</p>
+
+        <p>一个教案转课件Skill，至少应该准备下面几类场景：</p>
+
+        <div class="post-table-wrap" role="region" aria-label="教案转课件 Skill 测试场景表，可横向滚动" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">测试请求</th>
+                <th scope="col">预期行为</th>
+                <th scope="col">主要检查点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>“把这份教案做成HTML课件”</td>
+                <td>识别任务并读取教案</td>
+                <td>是否正确触发、是否拿到文件</td>
+              </tr>
+              <tr>
+                <td>“帮我做一份适合课堂展示的课件”</td>
+                <td>识别潜在需求并确认输入</td>
+                <td>没有点名Skill时能否接住任务</td>
+              </tr>
+              <tr>
+                <td>“把这页PPT改成蓝色”</td>
+                <td>不进入完整生成流程</td>
+                <td>相似需求是否误触发</td>
+              </tr>
+              <tr>
+                <td>只提供教案，没有说明关键使用条件</td>
+                <td>先判断缺少的信息是否会改变结果</td>
+                <td>应该追问时有没有直接执行</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>触发之后，还要继续检查三个层面。</p>
+
+        <p>第一，执行过程是否正确。需要的信息有没有读取，关键步骤有没有跳过，本应让用户确认的地方是否被AI自行决定。</p>
+
+        <p>第二，交付结果是否达标。文件能否使用，内容是否完整，结构和格式是否满足事先约定的标准。</p>
+
+        <p>第三，完成任务付出了多少额外成本。是否反复读取同一份资料、进行了无效操作，或者为了处理极少出现的情况，让所有正常任务都变得很慢。</p>
+
+        <p>这些检查可以进一步转成产品指标，例如误触发率、任务完成率、一次通过率、平均返工次数、人工介入比例和无效步骤数量。具体选择哪些指标，要看Skill承担的任务，不能套用同一套数字。</p>
+
+        <p>评测也不是产品完成后的最后一道检查。它会反过来帮助产品经理定义需求。如果我们无法写出一组明确的测试请求，也无法说明每种请求的预期行为，往往意味着任务边界还没有想清楚。</p>
+
+        <h2>五、Skill迭代的关键，不是继续增加规则</h2>
+
+        <p>Skill很难在第一版就覆盖所有情况。真正使用以后，误触发、漏掉步骤、重复操作和结果不合格都会出现。</p>
+
+        <p>最直接的处理方式，是每遇到一个问题就在文件里增加一条规则。但规则越积越多，新的问题也会出现：不同规则可能互相冲突，少见的异常开始限制主流程，真正重要的要求反而被埋在大量细节里。</p>
+
+        <p>因此，记录失败以后，先别急着修改，应该先找找失败的原因。</p>
+
+        <ul>
+          <li>任务没有被识别，检查触发契约；</li>
+          <li>信息不足却直接执行，检查输入契约；</li>
+          <li>AI替用户做了高风险决定，检查权限契约；</li>
+          <li>步骤顺序混乱，修改工作流程；</li>
+          <li>结果无法判断好坏，补充交付标准或检查工具；</li>
+          <li>缺少实时数据和操作权限，增加外部工具，而不是继续强调“必须准确”；</li>
+          <li>多次调整仍达不到质量要求，重新评估模型能力或缩小任务范围。</li>
+        </ul>
+
+        <p>不同原因对应不同解法。把工具问题当成提示词问题，只会让Skill越来越长；把任务定义问题当成模型能力问题，又可能导致没有必要的模型升级和成本增加。</p>
+
+        <p>修改完成后，还要用原来的失败场景重新测试。否则我们只知道文件发生了变化，却不知道问题是否真的被解决，也不知道新规则有没有破坏原本正常的任务。</p>
+
+        <p>一个更可靠的迭代循环是：</p>
+
+        <blockquote><p>记录失败场景→完成归因→修改对应部分→用原场景回归测试。</p></blockquote>
+
+        <p>当失败可以被记录、分类和再次验证时，Skill才开始从一份个人经验，变成能够持续改进的产品能力。</p>
+
+        <h2>六、Skill是任务层的最小产品，不是完整商业产品</h2>
+
+        <p>把Skill称为“最小AI产品”，很容易遇到一个反问：它没有独立界面、用户系统、商业模式，甚至还要依赖Agent和模型运行，怎么能算产品？</p>
+
+        <p>这个反问是成立的。</p>
+
+        <p>Skill当然不是完整的商业产品。它不负责获客、定价、账号、长期业务状态，也无法独自完成所有外部操作。把一份写好的文件直接等同于产品，会夸大它实际承担的能力。</p>
+
+        <p>但从任务层看，Skill已经包含了一部分产品最基本的结构：它面向一类用户任务，定义适用边界，安排人机分工，约束交付结果，并通过失败记录继续迭代。</p>
+
+        <p>所以，更准确的说法是：Skill可以承载一个最小的AI产品闭环，但它本身并不是完整产品。</p>
+
+        <p>一次性、输入明确的简单任务，一条Prompt通常已经足够。重复出现、流程相对稳定、能够验收的任务，才适合沉淀为Skill。任务需要实时数据、身份验证和外部操作时，还要接入MCP或其他工具。如果继续涉及多人协作、业务状态、权限体系和规模化服务，就需要升级为完整产品系统。</p>
+
+        <p>选择哪种形式，不能只看功能多少，还要看任务继续向前时缺少哪一层产品能力。</p>
+
+        <h2>结尾</h2>
+
+        <p>对AI产品经理来说，写Skill的价值远不止学会一种新的文件格式，或者把Prompt写得更长。</p>
+
+        <p>它迫使我们回答一些无法绕开的问题：用户真正要完成什么任务，系统什么时候应该接住它，哪些不确定性可以交给模型，哪些决定必须留给用户，以及怎样证明这次任务真的完成了。</p>
+
+        <p>这些问题同样存在于更大的AI产品里，只是在Skill中被压缩进了一个更小的范围。</p>
+
+        <p>文件可以很小，规则也不一定很多。但当一类任务开始拥有明确边界、合理分工、交付标准和迭代机制时，我们设计的就不再只是一段提示词，而是一个可交付的AI任务闭环。</p>
+      </div>
+
+      <footer class="post-foot">
+        <div class="post-tags">
+          <span class="post-tag">#AI 产品</span>
+          <span class="post-tag">#Skill 设计</span>
+          <span class="post-tag">#产品方法论</span>
+        </div>
+        <nav class="post-nav">
+          <a class="prev" href="notebooklm-trust-design.html">← 上一篇：NotebookLM 信任设计</a>
+          <a class="next" href="ai-pm-basics.html">下一篇：从模型能力到上线门槛 →</a>
+        </nav>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container foot">
+      <div class="foot-left">© <span data-year>2026</span> <span class="accent">MUZI-LI.dev</span> · Built with HTML / CSS / JS</div>
+      <div class="foot-motto">把 AI 做成真正有人用的产品。</div>
+      <div class="foot-links">
+        <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="../index.html#about">关于</a>
+        <a href="../index.html#top">返回首页</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="../home-reference.js?v=20260903-3"></script>
+</body>
+</html>

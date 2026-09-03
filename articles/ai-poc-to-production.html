@@ -1,95 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI 产品落地：从 PoC 到规模化应用的三个关键 · MUZI-LI</title>
-  <meta name="description" content="从验证到上线的常见坑与解法：数据、评估与成本控制。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="../css/article.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta http-equiv="refresh" content="0; url=ai-pm-basics.html">
+  <meta name="theme-color" content="#ffffff">
+  <title>文章已合并 · MUZI-LI</title>
+  <link rel="canonical" href="ai-pm-basics.html">
+  <script>window.location.replace("ai-pm-basics.html");</script>
 </head>
 <body>
-  <a class="skip-link" href="#article">跳到文章正文</a>
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="../index.html#top" aria-label="MUZI 首页">
-        <span class="brand-avatar" aria-hidden="true">M</span><span>Hi, MUZI</span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>
-        <span>菜单</span><span class="menu-icon" aria-hidden="true"></span>
-      </button>
-      <nav class="site-nav" id="site-nav" aria-label="主导航" data-nav>
-        <a href="../index.html#top">首页</a>
-        <a href="../index.html#work">项目</a>
-        <a class="is-active" href="../index.html#writing">文章</a>
-        <a href="../index.html#about">关于</a>
-        <a href="../index.html#contact">联系</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="article-page" id="article">
-    <article class="post">
-      <a class="back-link" href="../index.html#writing">← 返回文章列表</a>
-
-      <header class="post-head">
-        <span class="post-cat">AI 落地</span>
-        <h1 class="post-title">AI 产品落地：从 PoC 到规模化应用的三个关键</h1>
-        <div class="post-byline"><time>2026-02-10</time> · MUZI-LI · 12 分钟阅读</div>
-      </header>
-
-      <div class="post-content">
-        <p>做 AI 产品最常见的剧本是：<strong>PoC 阶段惊艳全场，上线之后灰头土脸。</strong>演示时模型对答如流，一到真实用户手里就各种翻车。</p>
-        <p>问题通常不在模型，而在三件事没做好：<strong>数据、评估、成本。</strong>这三个词听起来不性感，但决定了产品能不能从"玩具"变成"工具"。</p>
-
-        <h2>关键一：数据——地基决定天花板</h2>
-        <p>很多人纠结选哪个模型、调什么参数，却忽略了<strong>数据质量才是真正的天花板</strong>。喂给模型的知识库又旧又乱，再强的模型也给不出好答案。</p>
-        <ul>
-          <li><strong>数据质量 &gt; 模型选择</strong>：先整理好你的知识库，再谈模型。</li>
-          <li><strong>数据闭环</strong>：把用户反馈、标注结果回流到数据里，形成飞轮。</li>
-          <li><strong>RAG vs 微调</strong>：多数场景先上 RAG（检索增强）够用，数据量大且任务固定时再考虑微调。</li>
-        </ul>
-
-        <h2>关键二：评估——没有评测就没有迭代</h2>
-        <p>传统软件有测试用例，AI 产品的"测试用例"就是<strong>评估集</strong>。没有评估集，你就无法判断一次 Prompt 修改到底是变好了还是变差了，只能靠感觉。</p>
-        <p>我的做法是：<strong>自动评测 + 人工抽检</strong>结合。用一批有标准答案的代表性问题自动打分，再定期人工抽检边缘 case。用指标驱动迭代，而不是用心情。</p>
-
-        <h2>关键三：成本——算得清账才走得远</h2>
-        <p>AI 产品的成本不是一次性投入，而是<strong>每次调用都在花钱</strong>。规模化之后，延迟和 Token 成本会迅速放大。</p>
-        <ul>
-          <li><strong>延迟</strong>：响应用户要快，必要时用流式输出、缓存常见问题。</li>
-          <li><strong>Token 成本</strong>：精简 Prompt、只检索必要上下文，别把整本手册都塞进去。</li>
-          <li><strong>单位经济模型</strong>：算清楚"每服务一个用户花多少钱"，再决定定价和规模。</li>
-        </ul>
-        <blockquote><p>一个不能算清账的 AI 产品，规模越大，亏得越快。</p></blockquote>
-
-        <h2>结语</h2>
-        <p>AI 产品的落地，本质上是一个<strong>工程问题</strong>，而不只是模型问题。把数据、评估、成本这三件事做实，PoC 的惊艳才有可能变成上线的稳定。</p>
-      </div>
-
-      <footer class="post-foot">
-        <div class="post-tags">
-          <span class="post-tag">#AI 落地</span>
-          <span class="post-tag">#商业化</span>
-          <span class="post-tag">#数据</span>
-        </div>
-        <nav class="post-nav">
-          <a class="prev" href="prompt-as-interface.html">← 上一篇：大模型时代的产品设计：Prompt 即界面</a>
-          <a class="next" href="ai-pm-workflow.html">下一篇：如何用 AI 重构产品经理的日常工作流 →</a>
-        </nav>
-      </footer>
-    </article>
+  <main>
+    <p>这篇文章已经合并更新，请前往<a href="ai-pm-basics.html">《从模型能力到上线门槛：AI 产品经理如何把不确定性变成可交付产品》</a>。</p>
   </main>
-
-  <footer class="site-footer article-footer section-shell">
-    <span>© <span data-year>2026</span> MUZI</span>
-    <span>AI 产品 · 独立开发 · 长期创造</span>
-    <a href="#article">回到顶部 ↑</a>
-  </footer>
-
-  <script src="../main.js"></script>
 </body>
 </html>

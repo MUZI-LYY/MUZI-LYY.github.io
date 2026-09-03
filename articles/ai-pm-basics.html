@@ -3,101 +3,213 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI 产品经理的必修课：从技术理解到产品决策 · MUZI-LI</title>
-  <meta name="description" content="如何理解大模型的能力边界，并把技术判断转化为靠谱的产品决策。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>从模型能力到上线门槛：AI 产品经理如何把不确定性变成可交付产品 · MUZI-LI</title>
+  <meta name="description" content="从场景选择、任务契约和评估集，到上线门槛、人工兜底与扩量指标，拆解 AI 产品如何从一次演示走向稳定交付。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://miaoda.feishu.cn">
+  <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap">
   <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="../css/article.css" />
+  <link rel="stylesheet" href="../home-reference.css" />
+  <link rel="stylesheet" href="../css/article.css?v=20260903-1" />
 </head>
-<body>
+<body class="home-page article-detail-page">
   <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="progress" id="progressBar" aria-hidden="true"></div>
+
   <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="../index.html#top" aria-label="MUZI 首页">
-        <span class="brand-avatar" aria-hidden="true">M</span><span>Hi, MUZI</span>
+    <div class="container nav">
+      <a class="brand" href="../index.html#top" aria-label="返回 MUZI-LI 首页">
+        MUZI-LI<span class="dot">.</span><span class="brand-dev">dev</span>
       </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>
-        <span>菜单</span><span class="menu-icon" aria-hidden="true"></span>
-      </button>
-      <nav class="site-nav" id="site-nav" aria-label="主导航" data-nav>
-        <a href="../index.html#top">首页</a>
-        <a href="../index.html#work">项目</a>
-        <a class="is-active" href="../index.html#writing">文章</a>
-        <a href="../index.html#about">关于</a>
-        <a href="../index.html#contact">联系</a>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+        <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+        <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+        <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+        <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
       </nav>
+
+      <div class="nav-right">
+        <a class="btn-ghost" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer" aria-label="打开 MUZI-LI 的 GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <button class="nav-burger" id="burger" type="button" aria-label="打开菜单" aria-controls="mobileMenu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+    <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+    <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+    <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+    <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+  </div>
+
   <main class="article-page" id="article">
     <article class="post">
-      <a class="back-link" href="../index.html#writing">← 返回文章列表</a>
+      <a class="back-link" href="index.html">← 返回文章列表</a>
 
       <header class="post-head">
-        <span class="post-cat">AI 产品</span>
-        <h1 class="post-title">AI 产品经理的必修课：从技术理解到产品决策</h1>
-        <div class="post-byline"><time>2026-06-20</time> · MUZI-LI · 10 分钟阅读</div>
+        <span class="post-cat">AI 产品方法</span>
+        <h1 class="post-title">从模型能力到上线门槛：AI 产品经理如何把不确定性变成可交付产品</h1>
+        <div class="post-byline"><time datetime="2026-06-20">2026-06-20</time> · 更新于 <time datetime="2026-09-03">2026-09-03</time> · MUZI-LI · 11 分钟阅读</div>
       </header>
 
       <div class="post-content">
-        <p>很多人以为 AI 产品经理需要会写代码。其实不需要。但你至少要能回答一个问题：<strong>大模型能做什么、不能做什么，以及为什么。</strong>这决定了你能把产品边界画在哪里。</p>
-        <p>这篇写给我自己，也写给刚转行做 AI 产品的朋友。只讲三个最基础的概念，和一套简单的决策方法。</p>
-
-        <h2>一、先理解三个基本概念</h2>
-
-        <h3>1. Token：模型的"计费单位"</h3>
-        <p>模型读文字，不是按字，而是按 <code>Token</code> 切分。一个英文单词大约 1～2 个 Token，一个汉字大约 1 个 Token。为什么重要？因为它同时决定了<strong>成本</strong>和<strong>输入上限</strong>：同样的内容，切出来的 Token 越多，越贵，也越占上下文。</p>
-
-        <h3>2. 上下文窗口：模型的"短期记忆"</h3>
-        <p>模型一次能"看到"的信息是有限的，这就是上下文窗口。窗口越大，一次能塞进去的文档越多，但成本也越高、响应越慢。更重要的是，<strong>窗口满了不等于记住了</strong>——信息塞得越多，模型越容易"忽略中间"，这是产品设计时要特别小心的。</p>
-
-        <h3>3. 幻觉：模型会一本正经地胡说</h3>
-        <p>幻觉不是 bug，而是大模型的<strong>概率本质</strong>：它生成的是"最像正确答案的下一个词"，而不是"查证过的正确答案"。所以涉及事实、数字、合规的场景，一定要有兜底——比如检索增强（RAG）、工具调用、或者干脆加一步人工确认。</p>
-
-        <h2>二、能力边界决定产品边界</h2>
-        <p>一句话概括：大模型擅长<strong>生成与转换</strong>，不擅长<strong>精确与事实</strong>。</p>
-        <ul>
-          <li><strong>擅长</strong>：文本生成、总结、分类、改写、翻译、写代码、情感分析。</li>
-          <li><strong>不擅长</strong>：精确计算、实时事实、需要稳定长链推理的任务、需要负责任的决策。</li>
-        </ul>
-        <p>判断一个需求能不能用大模型，最靠谱的办法不是拍脑袋，而是<strong>花半天做个最小原型</strong>，用真实数据跑一跑，看看输出质量是否稳定。</p>
-
-        <h2>三、把技术判断转化为产品决策</h2>
-        <p>判断"这里该不该用大模型"，我一般问自己三个问题：</p>
+        <p>AI 产品的演示往往很容易让人兴奋。</p>
+        <p>准备一份干净的资料，输入一条精心调整过的 Prompt，模型很快给出一段完整回答。现场的人看到的是一次成功，于是接下来的问题自然变成：什么时候能上线？</p>
+        <p>可 PoC 和产品回答的不是同一个问题。PoC 证明的是，在选定输入、允许调试和可以重试的条件下，模型有机会完成任务；上线要证明的则是，面对表达不同、信息不全、甚至超出预期的真实请求，整个系统仍能把结果稳定交付给用户。</p>
+        <p>Anthropic 在一篇关于 Agent 评测的官方文章里，用两个指标解释这种差别。<code>pass@k</code> 关心多次尝试中能否至少成功一次，<code>pass^k</code> 关心多次尝试是否每一次都成功。假设单次成功率是 75%，连续三次全部成功的概率只有大约 42%。这个例子不是某个产品的真实成绩，却很准确地说明了为什么“一次演示成功”不能直接等同于“用户可以稳定使用”。</p>
+        <p>模型的不确定性不会在上线那一刻消失。AI 产品经理需要做的，是把这种不确定性拆成可以选择的场景、可以执行的评测、可以阻断的门槛、可以恢复的失败，以及可以观察的业务结果。</p>
+        <h2>一、先判断任务值不值得交给 AI</h2>
+        <p>AI 项目经常从模型开始：选哪一家、上下文多长、要不要 RAG、是否需要 Agent。可这些问题都排在另一个判断之后——用户的任务是否真的适合由模型参与。</p>
+        <p>大模型擅长处理自然语言、非结构化信息和存在多种合理答案的任务。它可以总结会议、改写文案、从长文中提取线索，也可以根据环境反馈选择下一步。但如果输入和输出都能被明确枚举，普通规则通常更便宜，也更稳定。用模型判断一个固定状态码，或者让 Agent 代替一条确定的数据库查询，都可能是在用更复杂的方式解决已经很清楚的问题。</p>
+        <p>判断场景时，可以先问四个问题。</p>
         <ol>
-          <li><strong>错误成本高不高？</strong>错了会不会造成损失？客服回答错了，人工能兜底；金融交易错了，就是事故。</li>
-          <li><strong>能不能兜底？</strong>有没有 RAG、工具、人工审核等机制降低风险？</li>
-          <li><strong>用户能否容忍？</strong>是"帮我写个初稿"，还是"给我一个确定的答案"？前者宽容，后者苛刻。</li>
+          <li><strong>这个任务是否需要理解模糊信息？</strong> 如果只需匹配确定规则，优先使用传统方法；如果需要综合语义、上下文或多种表达，模型才有明显价值。</li>
+          <li><strong>结果能不能被验证？</strong> 代码可以运行测试，订单可以查询最终状态，知识问答可以检查引用。结果越容易验证，系统越有机会及时发现模型偏差。</li>
+          <li><strong>错误会造成什么后果？</strong> 一段营销文案不合适可以重写，错误退款、公开发布或删除数据却可能造成真实损失。</li>
+          <li><strong>操作是否容易撤回？</strong> 即使错误概率相同，可撤销的草稿和不可逆的付款也不应该获得相同权限。</li>
         </ol>
-        <blockquote><p>能用规则和确定性方法解决的，不必强上大模型；用大模型的，一定为它的不确定性设计好兜底。</p></blockquote>
-
-        <h2>结语</h2>
-        <p>技术是手段，产品是目的。AI 产品经理的核心能力，不是懂模型架构，而是<strong>能把技术能力翻译成用户价值，再把用户价值翻译成可落地的产品决策</strong>。</p>
-        <p>如果你刚开始，我建议先别看书，直接打开一个模型的 API Playground，亲手试几十条 Prompt，感受一下它的"聪明"和"固执"。这比任何文档都直观。</p>
+        <p>这四个问题会导向不同的产品形态。固定、低变化的任务可以继续使用规则；开放但低风险的任务适合让 AI 提供草稿，由用户决定是否采用；需要调用工具但影响较大的任务，可以让 AI 准备方案，在执行前获得确认；只有目标清楚、结果可验证、权限有边界的开放任务，才适合逐步提高自主程度。</p>
+        <p>Anthropic 在 <a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a> 中建议从尽可能简单的方案开始，只有当更复杂的结构能够带来可测量的改善时，再从单次调用增加工作流或 Agent。原因很直接：自主性提高以后，延迟、成本和错误传播的空间也会一起增加。</p>
+        <p>所以，场景选择不是给需求贴一个“适合 AI”的标签。它是在决定模型负责哪一段、确定性系统负责哪一段、用户在哪些位置仍然保留决定权。</p>
+        <h2>二、写 Prompt 之前，先写清任务契约</h2>
+        <p>场景确定以后，团队很容易直接进入 Prompt 调试。输入一批样例，调整系统提示词，看回答有没有变好。但如果“完成任务”还没有被定义，Prompt 越调越长，团队也未必知道产品是否更接近上线。</p>
+        <p>更有效的起点，是先写一份任务契约。它至少要说清五件事：谁在什么场景下使用，系统能够读取哪些输入，应该交付什么结果，哪些决定不能替用户做，以及做不下去时如何结束。</p>
+        <p>以企业知识问答为例，“准确回答员工问题”很难直接验收。一份可执行的任务契约会继续说明：回答只能使用哪些资料；关键事实是否需要引用；资料不足时应该说明缺口还是允许调用公开信息；涉及薪酬、法律或权限的问题是否需要转交；用户最终拿到的是参考答案，还是可以直接执行的业务结论。</p>
+        <p>这些约定会直接改变产品方案。要求引用，就要让检索结果和回答建立可追踪关系；不允许使用外部知识，就要限制来源范围；资料不足时必须停止，就不能让模型靠语言流畅度把空白补满；需要转交人工，就要提前设计队列、上下文和状态，而不是在错误发生后临时贴一个联系方式。</p>
+        <p>任务契约也能帮助团队区分问题属于哪一层。回答语气不合适，可能通过 Prompt 和示例调整；资料缺失，需要补数据或检索；算错价格，应该调用确定性工具；越权执行，则要修改权限和确认机制。把所有失败都当成 Prompt 问题，只会让提示词承担它解决不了的责任。</p>
+        <h2>三、评估集不是上线前的考试，而是产品定义</h2>
+        <p>传统软件可以检查一个按钮点击后是否进入固定状态。生成式 AI 面对相同输入，措辞和路径都可能变化，因此评测不能要求每次输出完全一样，但必须检查关键行为是否稳定。</p>
+        <p>OpenAI 的<a href="https://platform.openai.com/docs/guides/evaluation-best-practices">评测最佳实践</a>建议尽早采用评测驱动的开发方式，使用贴近真实任务的测试，记录开发和生产中的输入输出，在适合的地方自动评分，并用人的判断校准自动评测。它也特别提醒，不要只依赖宽泛的学术指标，或用“感觉效果不错”代替评估。</p>
+        <p>一条评测用例至少包含三部分：给系统什么输入，希望它采取什么关键行为，以及用什么标准判断通过。它不一定要有唯一标准答案。例如测试会议总结时，可以要求必须覆盖三个决定、不得编造负责人、日期与原文一致；具体句子怎样组织，可以保留生成空间。</p>
+        <p>评估集需要同时覆盖三类情况。</p>
+        <ul>
+          <li>高频正常请求，用来证明产品解决了主要任务；</li>
+          <li>信息缺失、表达含糊和超出范围的边缘情况，用来检查系统会不会主动澄清或拒绝；</li>
+          <li>提示注入、越权要求和高风险操作等对抗情况，用来检查安全边界。</li>
+        </ul>
+        <p>只用团队精心编写的理想样例，评估集很容易重复 PoC 的偏差。真实用户的改写、重试、放弃和人工转交，应该逐步成为新的测试用例。上线前的评估集来自任务假设，上线后的评估集则要不断吸收真实失败。</p>
+        <p>复杂工作流还要把“结果”和“过程”分开检查。一个订单 Agent 最后给出了正确物流信息，不代表过程一定可靠。团队还要检查它是否选对工具、是否传入正确订单号、有没有调用不必要的接口、是否在敏感操作前等待确认。Anthropic 将完整执行记录称为 transcript 或 trace，而 outcome 是环境里的最终状态。Agent 说“已经退款”只是输出，后台是否真的生成退款记录才是结果。</p>
+        <p>评分方式也要与任务匹配。格式、字段、状态和工具参数可以用代码确定性检查；开放回答可以用清楚的评分标准进行人工判断，或使用模型评审；模型评审适合扩大覆盖量，但需要定期与人工结果校准。主观任务只看一个自动分数，客观任务全部交给人检查，都不是合理分工。</p>
+        <p>Anthropic 还区分了能力评测和回归评测。能力评测回答“系统目前能把困难任务做到什么程度”，允许保留较多失败来推动改进；回归评测回答“过去已经做对的事情，现在是否仍然做对”，通过率应接近稳定上限。每解决一个有代表性的生产问题，就应该把它加入回归集，避免下一次改 Prompt、换模型或调整流程时又把旧问题带回来。</p>
+        <h2>四、把上线标准写成几道明确的门</h2>
+        <p>有了评估集，团队仍然需要回答：做到什么程度才允许上线？</p>
+        <p>这里没有一个适用于所有 AI 产品的统一正确率。文案助手偶尔生成平庸句子，用户可以快速改掉；报销、医疗建议或账户操作中的一次严重错误，可能比许多次正常结果更重要。平均分会掩盖错误的重量，因此上线门槛必须和任务风险一起定义。</p>
+        <p>可以把门槛分成五类。</p>
+        <div class="post-table-wrap" role="region" aria-label="AI 产品上线门槛表，可横向滚动" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">门槛</th>
+                <th scope="col">需要回答的问题</th>
+                <th scope="col">可能采用的检查方式</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>任务质量</td>
+                <td>高频任务是否达到可用水平，关键错误是否被单独计算</td>
+                <td>任务通过率、关键字段准确率、人工评分</td>
+              </tr>
+              <tr>
+                <td>稳定性</td>
+                <td>同类输入重复运行时，结果能否持续达标</td>
+                <td>多次运行、回归集、失败分布</td>
+              </tr>
+              <tr>
+                <td>体验</td>
+                <td>用户要等多久，能否理解状态，失败后是否知道怎么继续</td>
+                <td>首次响应时间、任务完成时间、放弃率</td>
+              </tr>
+              <tr>
+                <td>成本</td>
+                <td>完成一次有效任务花多少钱，规模扩大后是否可承受</td>
+                <td>单次调用成本、每个成功任务成本、人工介入成本</td>
+              </tr>
+              <tr>
+                <td>风险</td>
+                <td>系统是否越权、泄露信息或执行不可逆操作</td>
+                <td>权限测试、对抗用例、确认与审计记录</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI 风险管理框架</a>把可信要求放在 AI 产品的设计、开发、使用和评估全过程中。沿着这个思路，上线门槛不应只是发布前的一次审查，而应在产品变化和真实风险出现后继续更新。</p>
+        <p>每类门槛还要区分“必须通过”和“可以观察”。例如页面文案评分略低，可以进入小范围测试；一条能够绕过付款确认的路径，则应直接阻断发布。上线清单不是把所有指标都追到满分，而是提前说清哪些问题可以带着观察，哪些问题出现一次也不能接受。</p>
+        <p>成本也不能只看 Token 单价。一次便宜调用如果经常失败，需要用户反复重试，最终的成功任务成本可能更高。更强模型单次更贵，但如果能减少工具误用和人工介入，总成本反而可能下降。产品经理应该比较的是完成用户任务的代价，而不是孤立的一次模型请求。</p>
+        <p>当这几道门有了明确判定方式，PoC 才开始变成产品。团队不再只展示能力上限，也开始为用户每天会遇到的体验下限负责。</p>
+        <h2>五、把失败当成正常状态，而不是意外弹窗</h2>
+        <p>AI 系统一定会遇到没见过的表达、不可用的工具、冲突的资料和超出权限的动作。如果产品只设计成功路径，用户看到的往往是模型继续猜、反复重试，或者在已经失败后仍然给出一段听起来完整的回答。</p>
+        <p>失败路径可以先分成三种处理。</p>
+        <p>第一种是补信息。目标、对象或必要参数缺失时，系统暂停执行，用尽量少的问题消除会改变结果的歧义。</p>
+        <p>第二种是缩小任务。完整任务无法可靠完成时，可以退回到风险更低的部分，例如只生成草稿、不自动发布，只给候选方案、不代替用户做决定，或者展示找到的资料而不强行合成确定答案。</p>
+        <p>第三种是停止并转交。工具连续失败、请求超出能力范围，或动作敏感且不可逆时，系统应保留已经获得的上下文，交还用户或人工处理，而不是把“继续尝试”当成默认答案。</p>
+        <p>OpenAI 的 <a href="https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf">A practical guide to building agents</a>把人工介入的典型触发条件概括为两类：系统超过预设的失败或重试阈值，以及即将执行高风险动作。前者避免 Agent 在同一个问题上无限循环，后者确保付款、退款、取消订单等敏感决定在可靠性不足时仍由人把关。</p>
+        <p>系统也不应该只依赖模型自己声明“我有信心”。更可靠的信号来自可检查的状态：必要字段是否齐全，检索是否找到直接证据，工具是否返回成功，输出是否通过规则检查，动作是否可逆，重试次数是否超过限制。模型判断可以成为其中一个信号，但不能独自决定是否越过高风险门槛。</p>
+        <p>对用户来说，失败需要被翻译成下一步。他应该知道系统缺少什么、哪些工作已经完成、继续重试会发生什么，以及能否回到原来的状态。人工兜底也不能只是一个“联系客服”按钮；如果前面的材料和执行记录无法一起转交，用户仍要从头解释一遍，兜底只是把成本转移给了他。</p>
+        <h2>六、先守住一个场景，再决定是否扩大</h2>
+        <p>产品通过内部评测后，也不适合立刻覆盖所有用户和任务。更稳妥的方式是先选择一个边界清楚、价值明确、能够观察结果的场景，以有限用户或有限权限上线。</p>
+        <p>小范围上线不是延长演示，而是开始收集评估集里没有的真实分布。除了主动点赞和评分，还可以观察用户是否重复生成、是否大幅修改结果、是否频繁撤销、在哪一步离开、什么时候要求人工帮助。对于带工具的系统，还要记录工具选择、参数、执行结果、重试次数和最终环境状态。</p>
+        <p>这些信号需要回到用户任务。生成次数上升，可能代表产品受欢迎，也可能代表第一次结果总是不合格；对话轮数增加，可能说明用户在深入探索，也可能说明系统一直没有理解。只有把行为与任务是否完成放在一起看，数字才有产品含义。</p>
+        <p>每次出现代表性失败，可以按照同一条路径处理：保存输入和执行记录，判断问题来自任务定义、数据、Prompt、模型、工具还是权限，把案例加入对应评估集，修改后做回归测试，再决定是否扩大流量。Anthropic 在 Agent 评测文章中也把评测与生产监控、A/B 测试和用户研究放在同一个持续改进过程里，而不是把评测当作上线前一次性的验收。</p>
+        <p>扩展新场景时，同样要重新经过场景判断和上线门槛。客服 Agent 能查物流，不代表它已经适合自动退款；内容工具能写初稿，也不代表它可以直接发布。两个任务可能共用同一个模型，却有完全不同的验证方式、错误成本和权限要求。</p>
+        <p>模型升级也不能绕过这条流程。更强模型可能提高能力，但也可能改变措辞、工具选择和延迟成本。有稳定评估集的团队，可以较快判断新模型在哪些任务上变好、哪些行为发生回退；没有评估集时，每次升级都只能重新靠人试一遍。</p>
+        <h2>结语：从“模型会不会”走到“产品能不能交付”</h2>
+        <p>理解 Token、上下文、RAG、幻觉和 Agent 当然有用。它们能帮助产品经理判断问题可能发生在哪里，也能减少与研发沟通时的误解。但这些概念只有进入场景、评估、权限、成本和恢复设计后，才会变成产品决策。</p>
+        <p>一项 AI 能力走向上线，大致会留下五份可以检查的产物：场景选择表说明为什么使用 AI，任务契约定义系统承诺什么，评估集说明怎样判断好坏，风险与恢复方案规定什么时候停下来，上线看板持续回答用户是否真的完成了任务。</p>
+        <p>这五份产物不一定要做成厚重文档。对一个小功能，它们可能只是一页说明和几十条测试；对会调用工具、改变业务状态的 Agent，它们则需要进入权限系统、状态机、监控和审核流程。形式可以轻，关键决定不能缺席。</p>
+        <p>AI 产品经理需要建立的技术判断，最后不是背出某个模型有多少参数，而是能够回答一组更具体的问题：这个任务为什么值得使用模型，怎样证明结果合格，哪些错误可以容忍，哪些动作必须停下，以及什么证据足以支持下一步扩量。</p>
+        <p>PoC 展示一次可能，产品负责长期交付。把两者连接起来的，正是这些围绕不确定性做出的明确选择。</p>
+        <hr>
+        <h2>官方资料</h2>
+        <p>资料核验日期：2026 年 9 月 3 日。</p>
+        <ol>
+          <li><a href="https://platform.openai.com/docs/guides/evaluation-best-practices">OpenAI：Evaluation best practices</a></li>
+          <li><a href="https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf">OpenAI：A practical guide to building agents</a></li>
+          <li><a href="https://www.anthropic.com/research/building-effective-agents">Anthropic：Building effective agents</a></li>
+          <li><a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Anthropic：Demystifying evals for AI agents</a></li>
+          <li><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST：AI Risk Management Framework</a></li>
+        </ol>
       </div>
 
       <footer class="post-foot">
         <div class="post-tags">
           <span class="post-tag">#AI 产品</span>
-          <span class="post-tag">#产品方法论</span>
-          <span class="post-tag">#大模型</span>
+          <span class="post-tag">#产品评测</span>
+          <span class="post-tag">#产品落地</span>
         </div>
         <nav class="post-nav">
-          <span class="prev"></span>
-          <a class="next" href="prompt-as-interface.html">下一篇：大模型时代的产品设计：Prompt 即界面 →</a>
+          <a class="prev" href="prompt-to-skill-task-loop.html">← 上一篇：从 Prompt 到 Skill：AI 产品经理如何设计一个可交付的任务闭环</a>
+          <a class="next" href="prompt-as-interface.html">下一篇：Prompt 即界面？AI 产品的可控任务闭环 →</a>
         </nav>
       </footer>
     </article>
   </main>
 
-  <footer class="site-footer article-footer section-shell">
-    <span>© <span data-year>2026</span> MUZI</span>
-    <span>AI 产品 · 独立开发 · 长期创造</span>
-    <a href="#article">回到顶部 ↑</a>
+  <footer class="site-footer">
+    <div class="container foot">
+      <div class="foot-left">© <span data-year>2026</span> <span class="accent">MUZI-LI.dev</span> · Built with HTML / CSS / JS</div>
+      <div class="foot-motto">把 AI 做成真正有人用的产品。</div>
+      <div class="foot-links">
+        <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="../index.html#about">关于</a>
+        <a href="../index.html#top">返回首页</a>
+      </div>
+    </div>
   </footer>
 
-  <script src="../main.js"></script>
+  <button class="to-top" id="toTop" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="../home-reference.js?v=20260903-3"></script>
 </body>
 </html>

@@ -3,97 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>大模型时代的产品设计：Prompt 即界面 · MUZI-LI</title>
-  <meta name="description" content="当交互从点击变成对话，产品设计范式正在发生哪些改变。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Prompt 即界面？AI 产品真正要设计的，是可控的任务闭环 · MUZI-LI</title>
+  <meta name="description" content="Prompt 是接收开放意图的入口，但完整的 AI 产品还要负责确认边界、呈现状态、验证结果、局部修改和失败恢复。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://miaoda.feishu.cn">
+  <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap">
   <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="../css/article.css" />
+  <link rel="stylesheet" href="../home-reference.css" />
+  <link rel="stylesheet" href="../css/article.css?v=20260903-1" />
 </head>
-<body>
+<body class="home-page article-detail-page">
   <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="progress" id="progressBar" aria-hidden="true"></div>
+
   <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="../index.html#top" aria-label="MUZI 首页">
-        <span class="brand-avatar" aria-hidden="true">M</span><span>Hi, MUZI</span>
+    <div class="container nav">
+      <a class="brand" href="../index.html#top" aria-label="返回 MUZI-LI 首页">
+        MUZI-LI<span class="dot">.</span><span class="brand-dev">dev</span>
       </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>
-        <span>菜单</span><span class="menu-icon" aria-hidden="true"></span>
-      </button>
-      <nav class="site-nav" id="site-nav" aria-label="主导航" data-nav>
-        <a href="../index.html#top">首页</a>
-        <a href="../index.html#work">项目</a>
-        <a class="is-active" href="../index.html#writing">文章</a>
-        <a href="../index.html#about">关于</a>
-        <a href="../index.html#contact">联系</a>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+        <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+        <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+        <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+        <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
       </nav>
+
+      <div class="nav-right">
+        <a class="btn-ghost" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer" aria-label="打开 MUZI-LI 的 GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <button class="nav-burger" id="burger" type="button" aria-label="打开菜单" aria-controls="mobileMenu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+    <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+    <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+    <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+    <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+  </div>
+
   <main class="article-page" id="article">
     <article class="post">
-      <a class="back-link" href="../index.html#writing">← 返回文章列表</a>
+      <a class="back-link" href="index.html">← 返回文章列表</a>
 
       <header class="post-head">
-        <span class="post-cat">产品设计</span>
-        <h1 class="post-title">大模型时代的产品设计：Prompt 即界面</h1>
-        <div class="post-byline"><time>2026-04-15</time> · MUZI-LI · 8 分钟阅读</div>
+        <span class="post-cat">AI 产品设计</span>
+        <h1 class="post-title">Prompt 即界面？AI 产品真正要设计的，是可控的任务闭环</h1>
+        <div class="post-byline"><time datetime="2026-04-15">2026-04-15</time> · 更新于 <time datetime="2026-09-03">2026-09-03</time> · MUZI-LI · 10 分钟阅读</div>
       </header>
 
       <div class="post-content">
-        <p>过去二十年，我们做产品设计，本质是在设计<strong>界面</strong>：按钮放在哪、层级怎么分、流程走几步。用户通过"点击"告诉我们他要什么。</p>
-        <p>大模型把这件事悄悄改变了——用户开始用<strong>一句话</strong>描述他想要什么，而模型直接给出结果。界面在退后，意图在提前。</p>
-
-        <h2>一、交互范式的迁移：从 GUI 到对话</h2>
-        <p>传统的图形界面（GUI）依赖<strong>功能可见性</strong>：按钮长什么样，用户就知道能做什么。它的好处是确定、可预期；代价是，用户的意图被框死在预设的功能里。</p>
-        <p>对话式交互则相反：用户用自然语言表达意图，模型去理解并执行。它的好处是<strong>开放、灵活</strong>；代价是，输出不确定，用户不知道该"怎么问"。</p>
-        <p>所以成熟的产品往往是<strong>混合形态</strong>：常用、明确的操作仍保留按钮，开放、模糊的需求交给对话。两者不是替代，而是分工。</p>
-
-        <h2>二、Prompt 即界面的几个设计原则</h2>
-        <p>既然 Prompt 成了新的"界面"，那它也需要像设计界面一样被认真设计。</p>
-
-        <h3>1. 给模型足够的上下文</h3>
-        <p>模型不是你团队里那个"秒懂你"的同事，它需要你把背景、目标、约束都说清楚。模糊的输入，只会得到模糊的输出。</p>
-
-        <h3>2. 明确约束与输出格式</h3>
-        <p>直接告诉模型"输出 JSON""不要超过 200 字""分三条写"，比事后吐槽它"没按我说的来"有效得多。<strong>约束是 Prompt 的一部分，不是附加项。</strong></p>
-
-        <h3>3. 设计"失败体验"</h3>
-        <p>对话式产品最容易被忽视的是失败路径：模型没听懂、答错了、或问了不该问的。好的设计会<strong>引导用户补充信息</strong>、提供可点击的示例、允许一键重试，而不是让用户面对一个冷冰冰的错误。</p>
-
-        <h2>三、产品经理的新职责</h2>
-        <p>当 Prompt 成为产品的一部分，产品经理的角色也在变：</p>
-        <ul>
-          <li><strong>写 Prompt 规范</strong>：沉淀一套团队级的 Prompt 模板与最佳实践。</li>
-          <li><strong>建评估集</strong>：用一批有代表性的问题，持续检验 Prompt 的输出质量。</li>
-          <li><strong>把 Prompt 当资产</strong>：它有版本、要测试、要迭代，和代码一样需要被管理。</li>
-        </ul>
-
-        <h2>结语</h2>
-        <p>"Prompt 即界面"不是一句口号，而是一种提醒：<strong>当用户不再点击按钮，产品的用户体验，就藏在你写下的每一句 Prompt 里。</strong></p>
+        <p>“把这份产品方案改得更简洁，保留关键判断，语气专业一些。”</p>
+        <p>一句话已经交代了对象、目标和风格，模型给出的结果却还是可能不对。它也许删掉了不该删的论据，也许把“专业”理解成了更书面，还可能重写整篇，而用户原本只想调整其中两段。</p>
+        <p>这类偏差常被归结为 Prompt 没写好。于是用户补背景、加限制、举例子，把一句话扩成一份越来越长的说明书。但我从 UI 设计转向 AI 产品经理的学习过程中，逐渐觉得这里少问了一个问题：为什么这些本应由产品承接的控制，要全部塞进一句自然语言里？</p>
+        <p>“Prompt 即界面”曾经是一个很有启发性的判断。它提醒我们，用户不必先理解菜单和功能层级，只要说出想完成什么，系统就能开始工作。可如果把这句话理解成“有了输入框，其他界面就不再重要”，很多真正影响任务成败的环节反而会被藏起来。</p>
+        <p>我目前更倾向于一个不那么响亮、但更接近产品工作的说法：<strong>Prompt 是意图入口，不是完整界面。AI 产品真正需要设计的，是一个让用户能够确认、观察、验证、修订和恢复的任务闭环。</strong></p>
+        <h2>一、Prompt 改变了界面，但没有消灭界面</h2>
+        <p>传统图形界面通常先把能力拆成按钮、表单、菜单和流程。用户想完成一件事，要先理解产品按照什么方式组织功能，再把自己的目标翻译成一串操作。</p>
+        <p>Prompt 改变了这个起点。面对“帮我比较三种方案，并找出最适合小团队的一个”这类开放任务，设计者很难提前穷举每一种意图。自然语言允许用户直接说目标、补充上下文，还能在对话中继续修正。它把很多过去散落在不同入口里的操作，压缩进一次表达。</p>
+        <p>这种变化是真实的，但“输入更开放”不等于“任务已经被设计完整”。按钮会提前暴露可选范围，表单会要求用户补齐必要信息，进度状态会告诉用户系统走到哪里。换成 Prompt 后，这些约束没有消失，只是从界面表面退到了系统的理解与反馈里。</p>
+        <p>如果产品不再把它们显示出来，用户就只能靠猜：模型怎样理解了“简洁”，它准备修改全文还是局部，哪些要求已经接受，哪些被忽略。看起来更自由的输入，也可能把交互成本变成反复试探模型的成本。</p>
+        <p>所以，Prompt 更像一扇宽入口。它特别适合接收模糊、组合式和难以枚举的意图。进入之后，产品仍要把任务重新变成可理解、可操作的状态。界面的形态变了，但界面承担的职责没有消失。</p>
+        <h2>二、真正难设计的不是输入框，而是输入之后的不确定性</h2>
+        <p>一句 Prompt 发出后，至少有几件事仍然悬而未决：系统理解的目标是否和用户一致，执行范围有没有越界，当前是在思考、生成还是等待，结果依据什么被判断为完成，出错后又能不能退回去。</p>
+        <p>这些问题很少能靠“把 Prompt 再写详细一点”彻底解决。自然语言擅长表达意图，却不天然提供稳定的状态记录。用户在第二轮说“前面都保留，只改最后一部分”，系统需要知道“前面”指什么、修改对象是哪一版、哪些约束继续有效。任务越长、结果越复杂，这种上下文就越需要由产品明确承接。</p>
+        <p><a href="https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/">Microsoft HAX 人机交互指南</a>提供了一个更系统的观察角度。官方将 18 条指南组织在首次交互、交互中、系统出错和长期使用四类情境中。与这里最相关的要求包括：让用户知道系统能做什么以及做得多好；允许高效调用和退出；在目标不确定时缩小范围或发起澄清；让纠正变得容易；解释系统行为；支持细粒度反馈，并给用户全局控制。</p>
+        <p>HAX 不是某个聊天产品的功能清单。相关<a href="https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/">研究论文</a>说明，这套指南综合了二十多年的研究，并由 49 名设计从业者在 20 个 AI 产品上进行验证。它至少说明，AI 交互里的可解释、可纠正和可退出，并不是生成式 AI 出现后才临时冒出来的装饰需求。</p>
+        <p>从产品角度看，输入之后的不确定性可以落在四个地方：意图有没有被正确理解，执行状态是否可见，结果是否能被验证，失败是否可以恢复。Prompt 可以参与解决第一项，却很难独自承担后面三项。真正困难的设计工作，正发生在输入框之后。</p>
+        <h2>三、Canvas 与 Artifacts：为什么聊天旁边又长出了工作区</h2>
+        <p>如果聊天框已经足够，为什么一些 AI 产品又把结果从消息流里拿出来，放进一个独立工作区？ChatGPT Canvas 和 Claude Artifacts 给出了很接近的答案：当用户面对的是一份需要持续修改的成果，对话记录不再是最合适的任务载体。</p>
+        <p>OpenAI 在 <a href="https://openai.com/index/introducing-canvas/">ChatGPT Canvas 的官方介绍</a>中明确提到，聊天界面适合很多任务，但在需要编辑和多轮修订的写作、编码项目中存在限制。Canvas 用独立窗口承载正在创作的内容。用户可以选中具体片段，请模型针对局部给出建议，也可以直接编辑内容、调用调整长度等快捷动作，并通过返回按钮恢复到较早版本。</p>
+        <p>这里值得注意的不只是“多了一块编辑器”。选区本身成为一种精确的意图信号。用户不必再描述“第三段第二句话”，系统也不必从整段对话里猜修改范围。直接编辑让人可以接管模型的输出；快捷动作把高频且边界清楚的调整变成稳定控制；版本恢复则降低了尝试一次修改的代价。</p>
+        <p><a href="https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them">Claude Artifacts 的官方说明</a>采用了相似结构。可独立使用的文档、代码和交互组件会出现在聊天之外的专用窗口。对于 Markdown 内容，用户可以选中文字后调用 “Edit with Claude”，也可以在不同版本之间切换。遇到错误状态时，“Try fixing with Claude”会把错误细节带进下一条消息。</p>
+        <p>Canvas 与 Artifacts 的具体能力并不完全相同，但两者都把“回答”变成了一个可以继续操作的对象。聊天负责协商意图，工作区负责呈现当前成果；选区、直接编辑、版本和错误信息则连接起下一轮行动。</p>
+        <p>在我看来，这种双区结构不是传统界面的回潮，而是对长任务的补课。消息流擅长保留沟通过程，却不擅长告诉用户“当前有效版本究竟是哪一份”。工作区把任务状态固定下来，让用户能围绕结果行动，而不只是继续和模型解释。</p>
+        <h2>四、Firefly：按钮和控件并没有过时</h2>
+        <p>图像生成更能看出 Prompt 的边界。用户当然可以用文字描述画面，但比例、颜色、光照、风格和构图等维度，如果全部依靠自然语言表达，不仅费力，也很难确认系统到底采用了哪组设置。</p>
+        <p><a href="https://www.adobe.com/products/firefly/features/text-to-image.html">Adobe Firefly Text to Image 的官方页面</a>把文本描述放在流程起点，同时提供比例、颜色、光照、风格和构图等结构化控制。一次生成最多呈现四个候选，用户可以继续生成，把某个结果作为参考图，或进入编辑工作区添加、移除对象以及修改背景，最后再导出成果。</p>
+        <p>这条流程不是“写好 Prompt，然后接受唯一答案”，而是输入描述、比较候选、调整方向、局部编辑，再决定是否完成。候选图让差异可见，参考图比继续形容“更像这一张”更直接，局部编辑则把修改范围从语言猜测变成了明确对象。</p>
+        <p>按钮和控件因此没有过时。它们适合承接那些选项相对稳定、需要反复比较、或者一旦选错就会明显影响结果的变量。Prompt 更适合描述开放语义，例如画面的故事、氛围和不容易枚举的细节。两者放在一起，用户既不用填写一张覆盖所有可能性的复杂表单，也不必把每个可控参数都藏进一段提示词。</p>
+        <p>这给产品经理一个很实际的判断方法：不要先争论“该用对话还是 GUI”，而要看任务中的变量属于哪一种。开放、组合且难以枚举的部分交给自然语言；范围明确、需要确认和重复调整的部分，应该让它可见、可选、可撤回。</p>
+        <h2>五、AI 产品的完整界面：六步可控闭环</h2>
+        <p>把 Canvas、Artifacts、Firefly 与 HAX 放在一起看，可以得到一条比“Prompt 即界面”更完整的产品链路：</p>
+        <blockquote><p>表达意图 → 确认边界 → 呈现状态 → 验证结果 → 局部修订 → 安全恢复</p></blockquote>
+        <p>它不是要求每个产品都增加六个页面，而是在检查一次任务是否具备六种必要能力。</p>
+        <h3>1. 表达意图</h3>
+        <p>用户需要先说清楚想完成什么。Prompt 在这里最有价值，因为它允许目标、背景和约束一起进入系统，也容纳那些产品无法提前列成选项的需求。产品要做的是降低表达门槛，而不是把写出“完美提示词”变成使用资格。</p>
+        <h3>2. 确认边界</h3>
+        <p>系统接收到意图后，应让用户知道它准备处理什么。这个边界可能是被选中的段落、当前打开的文档、采用的参考图，也可能是一项需要进一步澄清的目标。HAX 提到在目标不确定时缩小范围或澄清；Canvas 和 Artifacts 中的选区，则直接把范围变成可见对象。</p>
+        <p>确认边界不是每次都弹出一次确认。当系统理解明确、动作风险低时，可以轻量地呈现范围；只有歧义会改变结果或带来较高代价时，才需要主动停下来询问。</p>
+        <h3>3. 呈现状态</h3>
+        <p>开始执行后，用户需要判断系统是在继续工作、等待补充，还是已经失败。状态反馈也不等于展示全部内部推理。对用户有用的是任务层信息：正在处理哪个对象，当前结果是否仍在生成，下一步是否需要他的决定。</p>
+        <p>这一层缺失时，等待会变成猜测。用户可能重复提交，或者在系统其实需要输入时一直等待。HAX 所说的解释系统行为和支持全局控制，也只有在状态可见时才有落点。</p>
+        <h3>4. 验证结果</h3>
+        <p>模型返回内容，不代表任务已经完成。用户还要能判断结果是否符合最初目标。Canvas 和 Artifacts 提供可阅读或可交互的成果窗口；Firefly 用多个候选帮助用户比较方向。验证方式应贴近成果本身，而不是只给一句“已完成”。</p>
+        <p>产品经理在这一环要先定义什么叫成功：用户是在挑选一个候选、检查一份文档，还是确认一个组件能否工作？如果成功标准没有进入界面，系统和用户对“完成”的理解很容易错位。</p>
+        <h3>5. 局部修订</h3>
+        <p>当结果大体正确、局部有偏差时，重新写一遍 Prompt 或重做整份结果都很浪费。选中文字、直接编辑、选择参考图、添加或移除对象，都是把反馈绑定到具体位置的方法。</p>
+        <p>局部修订的关键是保留已经正确的部分。用户指出哪里需要变，产品把修改范围连同必要上下文交给模型。这样的一轮修订，比让用户重新描述整项任务更短，也更容易核对。</p>
+        <h3>6. 安全恢复</h3>
+        <p>探索意味着有些修改会失败。Canvas 的版本恢复、Artifacts 的版本切换和错误修复入口，都在告诉用户：一次尝试不必覆盖掉此前成果。HAX 还强调退出与全局控制，它们共同构成任务的安全边界。</p>
+        <p>恢复不只是“撤销”按钮。产品还要让用户知道能退到哪一版、错误发生在哪里、继续修复会影响什么。如果一次生成不可逆，用户就会减少尝试；当回退路径清楚，AI 的不确定性才有可能变成可探索性。</p>
+        <p>六步走完，也不代表流程只能单向前进。验证结果后，用户可能回到边界确认，也可能进入局部修订；修复失败后，需要回到上一个稳定版本。所谓任务闭环，是每一次偏差都有下一步，每一次完成或退出也都有明确状态。</p>
+        <p>对产品经理来说，这套闭环还能转成更具体的检查。用户是否反复改写同一要求，可能说明意图或边界不清；结果已经接近可用，却总被整份重做，可能说明缺少局部控制；用户遇到错误后直接离开，可能要继续检查状态说明和恢复路径。单看生成成功率，很难发现这些体验断点。</p>
+        <h2>六、什么时候一个 Prompt 就够了</h2>
+        <p>说到这里，也不能走向另一个极端：只要用了 AI，就配上工作区、版本树和一排控制项。OpenAI 在介绍 Canvas 时同样承认，聊天界面对许多任务是有效的。额外界面会带来理解和操作成本，控制越多不一定越好。</p>
+        <p>如果任务很短，结果可以直接在对话中消费，用户能够迅速判断好坏，答错后的损失也低，那么一个 Prompt 加一两轮追问通常已经足够。头脑风暴、改写一句文案、解释一个概念，都未必需要独立工作区。此时保持对话轻量，反而更符合任务。</p>
+        <p>当任务开始出现另外一些特征，产品才需要补上控制：结果会被持续编辑；修改必须精确到局部；用户要在多个候选之间比较；执行时间较长；错误会覆盖已有成果；或者用户很难仅凭最终输出判断系统做了什么。</p>
+        <p>补控制也不等于把自然语言重新变成复杂表单。一个选区、几个候选、清楚的状态、一条返回旧版本的路径，都可能比增加十个参数更有效。关键不是界面元素的数量，而是最影响任务成败的那部分不确定性，有没有被产品接住。</p>
+        <h2>结语：Prompt 是入口，反馈与控制共同构成界面</h2>
+        <p>以前做 UI 设计时，我更习惯从页面结构、操作路径和视觉反馈理解界面。开始学习 AI 产品后，Prompt 让我看到另一种可能：用户可以先表达目标，再由系统组织实现路径。</p>
+        <p>但看完 Canvas、Artifacts、Firefly 和 HAX 的官方材料，我更确定了一点。自然语言扩大了入口，却没有替产品完成边界、状态、验证、修订和恢复的设计。用户也不应该为了让系统可靠工作，被迫成为提示词工程师。</p>
+        <p>“Prompt 即界面”适合描述交互起点的变化。如果要把一项 AI 能力做成可以长期使用的产品，还需要把后半句补上：<strong>Prompt 是入口，反馈与控制共同构成界面；模型给出结果之后，任务能否被用户稳稳接住，才决定这次交互有没有真正闭环。</strong></p>
+        <hr>
+        <h2>官方资料</h2>
+        <p>资料核验日期：2026 年 9 月 3 日。</p>
+        <ol>
+          <li><a href="https://openai.com/index/introducing-canvas/">OpenAI：Introducing Canvas</a></li>
+          <li><a href="https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them">Anthropic：What are artifacts and how do I use them?</a></li>
+          <li><a href="https://www.adobe.com/products/firefly/features/text-to-image.html">Adobe Firefly：Text to Image</a></li>
+          <li><a href="https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/">Microsoft HAX：Guidelines for Human-AI Interaction</a></li>
+          <li><a href="https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/">Microsoft Research：Guidelines for Human-AI Interaction</a></li>
+        </ol>
       </div>
 
       <footer class="post-foot">
         <div class="post-tags">
-          <span class="post-tag">#产品设计</span>
+          <span class="post-tag">#AI 产品设计</span>
           <span class="post-tag">#Prompt</span>
-          <span class="post-tag">#交互设计</span>
+          <span class="post-tag">#人机交互</span>
         </div>
         <nav class="post-nav">
-          <a class="prev" href="ai-pm-basics.html">← 上一篇：AI 产品经理的必修课</a>
-          <a class="next" href="ai-poc-to-production.html">下一篇：AI 产品落地：从 PoC 到规模化应用的三个关键 →</a>
+          <a class="prev" href="ai-pm-basics.html">← 上一篇：从模型能力到上线门槛</a>
         </nav>
       </footer>
     </article>
   </main>
 
-  <footer class="site-footer article-footer section-shell">
-    <span>© <span data-year>2026</span> MUZI</span>
-    <span>AI 产品 · 独立开发 · 长期创造</span>
-    <a href="#article">回到顶部 ↑</a>
+  <footer class="site-footer">
+    <div class="container foot">
+      <div class="foot-left">© <span data-year>2026</span> <span class="accent">MUZI-LI.dev</span> · Built with HTML / CSS / JS</div>
+      <div class="foot-motto">把 AI 做成真正有人用的产品。</div>
+      <div class="foot-links">
+        <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="../index.html#about">关于</a>
+        <a href="../index.html#top">返回首页</a>
+      </div>
+    </div>
   </footer>
 
-  <script src="../main.js"></script>
+  <button class="to-top" id="toTop" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="../home-reference.js?v=20260903-3"></script>
 </body>
 </html>

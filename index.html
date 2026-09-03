@@ -3,186 +3,304 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="MUZI 的个人网站：AI 产品经理、独立开发者与长期创造者。">
-  <title>MUZI — AI 产品经理 × 独立开发者</title>
+  <meta name="description" content="MUZI-LI 的个人网站：AI 产品经理、独立开发者与长期创造者。">
+  <meta name="theme-color" content="#fafcff">
+  <meta property="og:title" content="MUZI-LI — AI 产品经理 × 独立开发者">
+  <meta property="og:description" content="把 AI 能力，落地成能用、好用、有业务价值的产品；把不确定的模型输出，做成稳定可靠的产品体验。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/muzi-product-creator-hero.png">
+  <title>MUZI-LI — AI 产品经理 × 独立开发者</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://miaoda.feishu.cn">
+  <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home-reference.css?v=20260903-2">
 </head>
-<body>
+<body class="home-page">
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <header class="site-header" data-header>
-    <div class="header-inner">
-      <a class="brand" href="#top" aria-label="MUZI 首页">
-        <span class="brand-avatar" aria-hidden="true">M</span>
-        <span>Hi, MUZI</span>
+  <div class="progress" id="progressBar" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="MUZI-LI 首页">
+        MUZI-LI<span class="dot">.</span><span class="brand-dev">dev</span>
       </a>
 
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>
-        <span>菜单</span><span class="menu-icon" aria-hidden="true"></span>
-      </button>
-
-      <nav class="site-nav" id="site-nav" aria-label="主导航" data-nav>
-        <a class="is-active" href="#top">首页</a>
-        <a href="#work">项目</a>
-        <a href="#writing">文章</a>
-        <a href="#about">关于</a>
-        <a href="#contact">联系</a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+        <a href="#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+        <a href="#writing" data-nav-link="writing"><span class="idx">03</span>文章</a>
+        <a href="#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+        <a href="#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
       </nav>
+
+      <div class="nav-right">
+        <a class="btn-ghost" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer" aria-label="打开 MUZI-LI 的 GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <button class="nav-burger" id="burger" type="button" aria-label="打开菜单" aria-controls="mobileMenu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+    <a href="#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+    <a href="#writing" data-nav-link="writing"><span class="idx">03</span>文章</a>
+    <a href="#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+    <a href="#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+  </div>
+
   <main id="main">
-    <section class="hero section-shell" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy reveal">
-        <div class="availability"><span aria-hidden="true"></span> 开放交流与合作</div>
-        <h1 id="hero-title">Hi，我是 MUZI</h1>
-        <p class="hero-role">AI 产品经理，也是一名独立开发者。</p>
-        <p class="hero-intro">
-          我关注 AI 产品创新与落地，在产品、设计与技术之间，
-          把复杂问题整理清楚，再把想法做成真正可用的产品。
-        </p>
-        <div class="hero-actions">
-          <a class="primary-link" href="#work">查看我的项目 <span>↘</span></a>
-          <a class="plain-link" href="#writing">阅读文章 <span>→</span></a>
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="role-line" aria-label="我的角色">
+            <span class="rl-p" aria-hidden="true">$</span>
+            <span class="rl-text">AI 产品经理</span>
+          </div>
+          <h1 id="hero-title">I’M <span class="grad">MUZI-LI.</span></h1>
+          <p class="hero-sub">把 AI 能力，落地成能用、好用、有业务价值的产品；把不确定的模型输出，做成稳定可靠的产品体验。</p>
+          <div class="hero-ctas">
+            <a class="btn-primary" href="#work">查看项目
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn-secondary" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
+          <dl class="hero-stats" aria-label="个人概览">
+            <div class="stat"><dt class="num">9<em>+</em></dt><dd class="lbl">产品与设计经验</dd></div>
+            <div class="stat"><dt class="num">AI</dt><dd class="lbl">AI 产品实践</dd></div>
+            <div class="stat"><dt class="num">6<em>+</em></dt><dd class="lbl">文章与思考</dd></div>
+            <div class="stat"><dt class="num">∞</dt><dd class="lbl">持续学习创造</dd></div>
+          </dl>
         </div>
-        <div class="social-links" aria-label="社交链接">
-          <a href="mailto:liyongyan163@163.com" aria-label="发送邮件">邮件</a>
-          <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener">GitHub</a>
-          <a href="#about">简历</a>
+
+        <div class="term" aria-label="终端式个人介绍">
+          <div class="term-bar">
+            <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+            <span class="term-title">muzi-li@product: ~</span>
+            <span class="term-session">SESSION 01</span>
+          </div>
+          <div class="term-body" id="termBody" aria-live="polite"></div>
+          <div class="term-status" aria-hidden="true">
+            <span class="term-ready"><i></i>ready</span>
+            <span>branch: main</span>
+            <span class="term-encoding">UTF-8 · LF</span>
+          </div>
         </div>
-      </div>
-
-      <figure class="portrait reveal">
-        <img src="assets/muzi-3d-avatar.png" alt="MUZI 的 Q 版 3D 人物形象">
-        <figcaption><span>MUZI / SHANGHAI</span><span>2026</span></figcaption>
-      </figure>
-
-      <div class="hero-summary reveal" aria-label="个人概览">
-        <div><strong>10+</strong><span>年设计与产品经验</span></div>
-        <div><strong>AI</strong><span>产品创新与落地</span></div>
-        <div><strong>∞</strong><span>保持学习与创造</span></div>
       </div>
     </section>
 
-    <section class="work-section section-shell" id="work" aria-labelledby="work-title">
-      <div class="section-heading reveal">
-        <div>
-          <p class="section-label">SELECTED WORK</p>
-          <h2 id="work-title">精选项目</h2>
+    <section class="skills-strip" aria-label="能力标签">
+      <div class="container">
+        <span class="strip-lbl"># skill stack</span>
+        <div class="strip-tags">
+          <span class="chip plain">产品判断</span>
+          <span class="chip plain">AI 创新</span>
+          <span class="chip plain">用户研究</span>
+          <span class="chip plain">设计系统</span>
+          <span class="chip plain">Vibe Coding</span>
+          <span class="chip plain">独立开发</span>
         </div>
-        <p>从问题定义、产品判断到最终实现，我更关心一件事：它是否真的创造了价值。</p>
       </div>
+    </section>
 
-      <article class="featured-project reveal">
-        <div class="project-preview preview-workflow" aria-hidden="true">
-          <div class="preview-toolbar"><span></span><span></span><span></span><small>AI PRODUCT WORKFLOW</small></div>
-          <div class="workflow-canvas">
-            <div class="workflow-sidebar"><b>Workflow</b><i></i><i></i><i></i><i></i></div>
-            <div class="workflow-main">
-              <div class="workflow-title"><small>需求研究助手</small><strong>从模糊问题到产品判断</strong></div>
-              <div class="workflow-steps"><span>资料收集</span><em>→</em><span>洞察提取</span><em>→</em><span>方案验证</span></div>
-              <div class="workflow-output"><span></span><span></span><span></span><span></span></div>
+    <section class="container" id="work" aria-labelledby="work-title">
+      <header class="section-head reveal">
+        <span class="sec-label"><span class="num">01</span> PROJECTS</span>
+        <h2 class="section-title" id="work-title">最近在做的事</h2>
+        <p class="section-desc">这些不是一次性的 Demo，而是我围绕产品工作持续搭建、使用和迭代的工具与系统。</p>
+      </header>
+
+      <div class="project-grid" aria-label="精选项目列表">
+        <article class="reveal">
+          <a class="proj-card" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">
+            <div class="proj-cover">
+              <img src="assets/project-ai-workflow.jpg" width="1600" height="1200" alt="AI 产品经理工作流项目封面" loading="lazy" decoding="async">
+              <span class="scanline" aria-hidden="true"></span>
             </div>
-          </div>
-        </div>
-        <div class="project-info">
-          <div class="project-meta"><span>01 / AI PRODUCT</span><span>2026</span></div>
-          <h3>AI 产品经理<br>工作流实验</h3>
-          <p>把需求分析、资料研究、方案推演与原型验证，拆解成一套可复用的人机协作流程。</p>
-          <ul class="tag-list"><li>产品策略</li><li>AI 工作流</li><li>原型验证</li></ul>
-          <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener">了解项目 <span>↗</span></a>
-        </div>
-      </article>
-
-      <div class="project-grid">
-        <article class="project-card reveal">
-          <div class="project-preview preview-site" aria-hidden="true">
-            <div class="site-mini-nav"><b>Insight</b><span>概览　主题　报告</span></div>
-            <div class="site-mini-content"><small>USER RESEARCH</small><strong>把分散反馈<br>变成行动线索。</strong><i></i></div>
-          </div>
-          <div class="card-title"><div><span>02 / AI RESEARCH</span><h3>用户反馈洞察工具</h3></div><b>↗</b></div>
-          <p>聚合访谈、问卷与客服记录，用 AI 提取高频问题、证据和机会优先级。</p>
+            <div class="proj-body">
+              <div class="proj-tags"><span class="chip">AI 产品体系</span><span class="chip">工作流</span></div>
+              <h3 class="proj-title">AI 产品经理工作流</h3>
+              <p class="proj-desc">把研究、需求判断、方案推演与原型验证，整理成可复用的人机协作流程。</p>
+              <div class="proj-foot"><span class="gh">GitHub ↗</span><span>MUZI / workflow</span></div>
+            </div>
+          </a>
         </article>
 
-        <article class="project-card reveal">
-          <div class="project-preview preview-decisions" aria-hidden="true">
-            <div class="decision-index"><span>001</span><span>002</span><span>003</span></div>
-            <div class="decision-copy"><small>PRODUCT DECISIONS</small><strong><span>观察</span><span>判断</span><span>验证</span></strong></div>
-          </div>
-          <div class="card-title"><div><span>03 / KNOWLEDGE SYSTEM</span><h3>AI 产品决策集</h3></div><b>↗</b></div>
-          <p>记录模型边界、评估方法、成本约束，以及 AI 产品从 PoC 走向生产的真实问题。</p>
+        <article class="reveal">
+          <a class="proj-card" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">
+            <div class="proj-cover">
+              <img src="assets/project-user-insight.jpg" width="1600" height="1200" alt="用户反馈洞察工具项目封面" loading="lazy" decoding="async">
+              <span class="scanline" aria-hidden="true"></span>
+            </div>
+            <div class="proj-body">
+              <div class="proj-tags"><span class="chip">用户研究</span><span class="chip">洞察</span></div>
+              <h3 class="proj-title">用户反馈洞察工具</h3>
+              <p class="proj-desc">把分散的访谈、问卷与客服记录，转化成可以回溯证据的产品机会。</p>
+              <div class="proj-foot"><span class="gh">GitHub ↗</span><span>MUZI / insight</span></div>
+            </div>
+          </a>
+        </article>
+
+        <article class="reveal">
+          <a class="proj-card" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">
+            <div class="proj-cover">
+              <img src="assets/project-decision-system.jpg" width="1600" height="1200" alt="AI 产品决策集项目封面" loading="lazy" decoding="async">
+              <span class="scanline" aria-hidden="true"></span>
+            </div>
+            <div class="proj-body">
+              <div class="proj-tags"><span class="chip">知识系统</span><span class="chip">决策</span></div>
+              <h3 class="proj-title">AI 产品决策集</h3>
+              <p class="proj-desc">记录模型边界、评估方法与成本约束，把观察、判断和验证沉淀为可复用的档案。</p>
+              <div class="proj-foot"><span class="gh">GitHub ↗</span><span>MUZI / decisions</span></div>
+            </div>
+          </a>
         </article>
       </div>
     </section>
 
-    <section class="writing-section section-shell" id="writing" aria-labelledby="writing-title">
-      <div class="section-heading reveal">
-        <div>
-          <p class="section-label">WRITING</p>
-          <h2 id="writing-title">最近文章</h2>
+    <section class="articles-band" id="writing" aria-labelledby="writing-title">
+      <div class="container">
+        <header class="section-head article-section-head reveal">
+          <div class="article-head-copy">
+            <span class="sec-label ink"><span class="num">02</span> ARTICLES</span>
+            <h2 class="section-title" id="writing-title">把实践写清楚</h2>
+            <p class="section-desc">写作帮助我理清判断，也把实践中真正有价值的部分分享给更多人。</p>
+          </div>
+          <div class="article-head-aside">
+            <a class="article-more" href="articles/index.html">查看更多文章 <span aria-hidden="true">↗</span></a>
+          </div>
+        </header>
+
+        <div class="article-list">
+          <a class="art-row reveal" href="articles/ai-design-asset-flywheel.html">
+            <div class="art-thumb"><img src="assets/article-design-asset-flywheel.svg" width="1600" height="1000" alt="AI 营销设计资产飞轮文章封面" loading="lazy" decoding="async"></div>
+            <div class="art-body">
+              <div class="art-meta"><time datetime="2026-09-01">2026-09-01</time><span>11 分钟阅读</span><span class="chip plain">AI 落地</span></div>
+              <h3 class="art-title">从生成一张图，到盘活一套资产：AI 营销设计的另一条路</h3>
+              <p class="art-excerpt">让 AI 从“重新生成”走向检索、重组和预检，把历史模板变成能持续复用的设计资产。</p>
+            </div>
+            <span class="art-side" aria-hidden="true"><span class="art-index">ARTICLE 01</span><span class="art-go">↗</span></span>
+          </a>
+
+          <a class="art-row reveal" href="articles/ai-agent-safety-gates.html">
+            <div class="art-thumb"><img src="assets/article-agent-safety-gates.svg" width="1600" height="1000" alt="AI Agent 五道安全闸门文章封面" loading="lazy" decoding="async"></div>
+            <div class="art-body">
+              <div class="art-meta"><time datetime="2026-08-21">2026-08-21</time><span>15 分钟阅读</span><span class="chip plain">Agent 产品设计</span></div>
+              <h3 class="art-title">AI Agent 上线前，产品经理必须设计的五道安全闸门</h3>
+              <p class="art-excerpt">从回答风险走向行动风险，用任务、权限、确认、观察和恢复约束 Agent 的每一步行动。</p>
+            </div>
+            <span class="art-side" aria-hidden="true"><span class="art-index">ARTICLE 02</span><span class="art-go">↗</span></span>
+          </a>
+
+          <a class="art-row reveal" href="articles/notebooklm-trust-design.html">
+            <div class="art-thumb"><img src="assets/article-notebooklm-trust.svg" width="1600" height="1000" alt="NotebookLM 信任设计文章封面" loading="lazy" decoding="async"></div>
+            <div class="art-body">
+              <div class="art-meta"><time datetime="2026-08-19">2026-08-19</time><span>16 分钟阅读</span><span class="chip plain">AI 产品拆解</span></div>
+              <h3 class="art-title">NotebookLM 产品拆解：AI 知识产品如何建立用户信任？</h3>
+              <p class="art-excerpt">从知识边界、证据验证到成果溯源，拆解 AI 知识产品如何建立一条完整的信任链。</p>
+            </div>
+            <span class="art-side" aria-hidden="true"><span class="art-index">ARTICLE 03</span><span class="art-go">↗</span></span>
+          </a>
+
+          <a class="art-row reveal" href="articles/prompt-to-skill-task-loop.html">
+            <div class="art-thumb"><img src="assets/article-prompt-to-skill.svg" width="1600" height="1000" alt="从 Prompt 到 Skill 任务闭环文章封面" loading="lazy" decoding="async"></div>
+            <div class="art-body">
+              <div class="art-meta"><time datetime="2026-08-18">2026-08-18</time><span>12 分钟阅读</span><span class="chip plain">AI 产品</span></div>
+              <h3 class="art-title">从 Prompt 到 Skill：AI 产品经理如何设计一个可交付的任务闭环</h3>
+              <p class="art-excerpt">从任务边界、人机分工、验收与迭代出发，把一次性 Prompt 设计成可重复交付的 Skill。</p>
+            </div>
+            <span class="art-side" aria-hidden="true"><span class="art-index">ARTICLE 04</span><span class="art-go">↗</span></span>
+          </a>
         </div>
-        <p>写作让我理清判断，也把实践经验分享给更多人。</p>
-      </div>
-
-      <div class="article-list">
-        <a class="article-row reveal" href="articles/ai-pm-basics.html">
-          <time datetime="2026-06-20">2026.06</time>
-          <div><h3>AI 产品经理的必修课：从技术理解到产品决策</h3><p>模型能力 · 产品判断 · 10 分钟阅读</p></div>
-          <span>↗</span>
-        </a>
-        <a class="article-row reveal" href="articles/prompt-as-interface.html">
-          <time datetime="2026-04-15">2026.04</time>
-          <div><h3>大模型时代的产品设计：Prompt 即界面</h3><p>产品设计 · 人机交互 · 8 分钟阅读</p></div>
-          <span>↗</span>
-        </a>
-        <a class="article-row reveal" href="articles/ai-poc-to-production.html">
-          <time datetime="2026-02-10">2026.02</time>
-          <div><h3>AI 产品落地：从 PoC 到规模化应用的三个关键</h3><p>产品落地 · 方法论 · 12 分钟阅读</p></div>
-          <span>↗</span>
-        </a>
-        <a class="article-row reveal" href="articles/ai-pm-workflow.html">
-          <time datetime="2025-12-05">2025.12</time>
-          <div><h3>如何用 AI 重构产品经理的日常工作流</h3><p>工作方法 · AI 协作 · 9 分钟阅读</p></div>
-          <span>↗</span>
-        </a>
       </div>
     </section>
 
-    <section class="about-section section-shell" id="about" aria-labelledby="about-title">
-      <div class="about-intro reveal">
-        <p class="section-label">ABOUT</p>
-        <h2 id="about-title">设计训练感受力，<br>产品训练判断力。</h2>
-        <p>我曾长期从事 UI / UE 设计与传统产品管理，现在专注 AI 产品创新与落地，也在工作之外持续开发自己的小产品。</p>
-      </div>
+    <section class="about container" id="about" aria-labelledby="about-title">
+      <header class="section-head reveal">
+        <span class="sec-label"><span class="num">03</span> ABOUT</span>
+        <h2 class="section-title" id="about-title">关于我</h2>
+      </header>
 
-      <div class="experience reveal" aria-label="职业经历">
-        <div class="experience-row"><time>2024—现在</time><div><strong>AI 产品经理</strong><span>平安财险</span></div></div>
-        <div class="experience-row"><time>2021—2024</time><div><strong>产品经理</strong><span>平安养老险</span></div></div>
-        <div class="experience-row"><time>2015—2021</time><div><strong>UI / UE 设计师</strong><span>平安养老险</span></div></div>
-      </div>
+      <div class="about-grid">
+        <aside class="about-card reveal">
+          <div class="avatar-wrap">
+            <img class="about-avatar" src="assets/muzi-3d-avatar-story-french-blue.png" width="1024" height="1536" alt="MUZI-LI 的 3D 人物形象" loading="lazy" decoding="async">
+            <span class="holo-ring" aria-hidden="true"><span class="holo-dot"></span></span>
+          </div>
+          <div class="about-name">MUZI-LI</div>
+          <div class="about-role">AI 产品经理 / 独立开发者</div>
+          <div class="about-links">
+            <a class="about-link" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub · liyongyan129-maker</a>
+            <a class="about-link" href="mailto:liyongyan163@163.com">Email · liyongyan163@163.com</a>
+          </div>
+        </aside>
 
-      <div class="personal-list reveal">
-        <span>生活在上海</span><span>关注 AI 与产品</span><span>喜欢设计与摄影</span><span>正在持续构建</span>
+        <div class="about-bio">
+          <h3>我是谁</h3>
+          <p><b>我是 MUZI-LI</b>，曾长期从事 UI / UE 设计与传统产品管理，现在专注 AI 产品创新与落地，也在工作之外持续开发自己的小产品。</p>
+          <p>设计训练感受力，产品训练判断力。我关注产品判断、AI 创新、设计系统与独立开发，也习惯用 Vibe Coding 快速把想法变成可以验证的产品。</p>
+
+          <h3>工作经历</h3>
+          <div class="timeline" aria-label="职业经历">
+            <div class="tl-item reveal"><time class="tl-period">2024 — 现在</time><span class="tl-role">AI 产品经理</span><span class="tl-org">平安财险</span></div>
+            <div class="tl-item reveal"><time class="tl-period">2021 — 2024</time><span class="tl-role">产品经理</span><span class="tl-org">平安养老险</span></div>
+            <div class="tl-item reveal"><time class="tl-period">2015 — 2021</time><span class="tl-role">UI / UE 设计师</span><span class="tl-org">平安养老险</span></div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="contact-section section-shell" id="contact" aria-labelledby="contact-title">
-      <div class="contact-copy reveal">
-        <p class="section-label">CONTACT</p>
-        <h2 id="contact-title">有一个值得聊聊的想法？</h2>
-        <p>无论是产品、AI、独立开发，还是一次轻松的经验交流，都欢迎联系我。</p>
+    <section class="contact-band" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-inner reveal">
+        <div class="contact-copy">
+          <span class="sec-label ink"><span class="num">04</span> CONTACT</span>
+          <h2 class="section-title" id="contact-title">如果你在做一件没有标准答案的事，我们可以聊聊。</h2>
+          <p class="section-desc">无论是产品、AI、独立开发，还是一次轻松的经验交流，都欢迎联系我。</p>
+          <a class="contact-email" href="mailto:liyongyan163@163.com">liyongyan163@163.com <span aria-hidden="true">↗</span></a>
+        </div>
+        <svg class="contact-mark" viewBox="0 0 360 260" aria-hidden="true" focusable="false">
+          <defs>
+            <pattern id="contact-dot-grid" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.1" fill="currentColor"/></pattern>
+            <mask id="contact-dot-mask"><path d="M28 30H96L180 158L264 30H332V232H278V120L207 232H153L82 120V232H28Z" fill="url(#contact-dot-grid)"/></mask>
+          </defs>
+          <g mask="url(#contact-dot-mask)"><rect width="360" height="260" fill="currentColor" opacity=".18"/><ellipse cx="180" cy="158" rx="130" ry="108" fill="currentColor" opacity=".22"/></g>
+        </svg>
       </div>
-      <a class="contact-email reveal" href="mailto:liyongyan163@163.com">
-        <span>liyongyan163@163.com</span><b>发送邮件 ↗</b>
-      </a>
     </section>
   </main>
 
-  <footer class="site-footer section-shell">
-    <span>© <span data-year>2026</span> MUZI</span>
-    <span>AI 产品 · 独立开发 · 长期创造</span>
-    <a href="#top">回到顶部 ↑</a>
+  <footer class="site-footer">
+    <div class="container foot">
+      <div class="foot-left">© <span data-year>2026</span> <span class="accent">MUZI-LI.dev</span> · Built with HTML / CSS / JS</div>
+      <div class="foot-motto">把 AI 做成真正有人用的产品。</div>
+      <div class="foot-links">
+        <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="#about">关于</a>
+        <a href="#top">回到顶部</a>
+      </div>
+    </div>
   </footer>
 
-  <script src="main.js"></script>
+  <button class="to-top" id="toTop" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <div class="boot" id="boot" role="status" aria-label="网站开机动画" tabindex="0">
+    <div class="term">
+      <div class="term-bar">
+        <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+        <span class="term-title">muzi-li@product: boot</span>
+      </div>
+      <div class="term-body" id="bootBody"></div>
+    </div>
+    <p class="boot-tip">点击或按任意键跳过</p>
+  </div>
+
+  <script src="home-reference.js?v=20260903-3"></script>
 </body>
 </html>

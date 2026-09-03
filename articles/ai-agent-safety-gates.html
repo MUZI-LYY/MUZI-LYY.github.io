@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>AI Agent上线前，产品经理必须设计的五道安全闸门 · MUZI-LI</title>
+  <meta name="description" content="从 Pi Coding Agent 在部分事项未确认时继续执行的体验出发，区分 Agent 的回答风险与行动风险，提出任务、权限、确认、观察、恢复五道安全闸门，并将其落成 PRD 规则、状态机与验收用例。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://miaoda.feishu.cn">
+  <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap">
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../home-reference.css" />
+  <link rel="stylesheet" href="../css/article.css?v=20260903-1" />
+</head>
+<body class="home-page article-detail-page">
+  <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="progress" id="progressBar" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html#top" aria-label="返回 MUZI-LI 首页">
+        MUZI-LI<span class="dot">.</span><span class="brand-dev">dev</span>
+      </a>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+        <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+        <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+        <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+        <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+      </nav>
+
+      <div class="nav-right">
+        <a class="btn-ghost" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer" aria-label="打开 MUZI-LI 的 GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <button class="nav-burger" id="burger" type="button" aria-label="打开菜单" aria-controls="mobileMenu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+    <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+    <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+    <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+    <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+  </div>
+
+  <main class="article-page" id="article">
+    <article class="post">
+      <a class="back-link" href="index.html">← 返回文章列表</a>
+
+      <header class="post-head">
+        <span class="post-cat">Agent 产品设计</span>
+        <h1 class="post-title">AI Agent上线前，产品经理必须设计的五道安全闸门</h1>
+        <div class="post-byline"><time datetime="2026-08-21">2026-08-21</time> · MUZI-LI · 15 分钟阅读</div>
+      </header>
+
+      <div class="post-content">
+        <blockquote><p>AI Agent的安全，不只是防止危险操作，更要防止它在授权不清时继续行动。Prompt只能提醒，不能代替系统约束。产品经理需要从任务边界、工具权限、用户确认、过程可见和错误恢复五个环节设计安全闸门，让Agent知道什么可以做、什么必须等，做错了又该怎么回来。</p></blockquote>
+
+        <p>最近，我在拆解一个用于学习Claude Code工作机制的开源项目。</p>
+        <p>其中有一个章节叫做：<strong>s03: Permission——执行前做权限判断。</strong></p>
+        <p>这个章节要解决的问题很直观。前一个版本的Agent已经可以读取、修改文件，也可以执行bash命令。文件工具虽然限制了访问目录，但bash还没有统一的权限检查。如果模型生成了一条危险命令，工具层还是可能直接照着执行。</p>
+        <p>这个项目没有继续在Prompt里提醒模型“不要执行危险操作”，而是在工具真正运行之前，加了一个<code>check_permission()</code>。</p>
+        <p>这套流程其实很好理解。先看操作是不是碰到了安全红线，碰到就直接拦住；再根据工具和参数判断要不要问用户；如果需要确认，Agent就先停下来。没有触发拦截，或者用户明确同意之后，工具才能继续运行。</p>
+        <p>当然，这只是一个用来讲清权限流程的教学示例。文档自己也提醒，简单的字符串匹配不能当成完整的安全边界。但它让我一下看清了一个关键点：<strong>权限判断必须放在行动之前。</strong></p>
+        <p>看到这里时，我突然想起了最近使用Pi Coding Agent开发旅游计划生成项目的一次经历。</p>
+        <p>有一次，Pi在对话里列出了3项需要我确认的待办。我确认了第一项和第二项，对第三项没有给出任何回复。</p>
+        <p>按我的理解，第三项应该还在等我回答。但Pi已经继续往下开发了，相当于默认3项都得到了确认。</p>
+        <p>这个开源项目里的Permission，管的是“一项操作能不能执行”。而Pi这次经历暴露的是另一个问题：“用户到底批准了哪些事项”。</p>
+        <p>两个场景看起来不太一样，但问的是同一件事：Agent准备动手之前，系统有没有先检查，它到底拿没拿到这一步的授权？</p>
+        <p>放在普通聊天产品里，这可能只是一次理解偏差。用户发现答非所问，再解释一遍就好了。但Agent不只是回答问题，它还会调用工具，把自己的判断变成真实操作。理解错一步，后面可能跟着一连串文件修改、命令执行或者外部服务调用。</p>
+        <p>所以，Agent安全不只是防止删除文件、泄露数据这些明显的危险。还有一类风险不那么显眼：用户还没有作出决定，Agent却已经替用户把决定补上了。</p>
+        <p>一个Agent上线前，产品经理需要设计的不只是“它能做什么”，还包括“它在什么地方必须停下来”。</p>
+
+        <h2>Agent带来的不只是回答风险，还有行动风险</h2>
+        <p>刚开始了解Agent时，给我的感觉就是：Chatbot更像问答工具，Agent则像一个能调用工具、继续干活的新员工。</p>
+        <p>Chatbot给错答案，问题通常还停留在对话框里。Agent一旦理解错了任务或者授权范围，错误就可能进入下一步执行。它可以读取资料、修改文件、调用接口，再根据工具返回的结果继续行动。</p>
+        <p>这时，产品要处理的风险就变成了两类：</p>
+        <ul>
+          <li><strong>回答风险</strong>：Agent说错了什么。</li>
+          <li><strong>行动风险</strong>：Agent在没有充分授权的情况下做了什么。</li>
+        </ul>
+        <p>为了弄清楚这是不是Pi本身的权限问题，我又去看了它的官方说明。Pi把自己定位成一个极简、可扩展的终端编码工具。它默认向模型提供<code>read</code>、<code>write</code>、<code>edit</code>和<code>bash</code>四种工具，但核心产品没有内置计划模式、待办功能和权限弹窗。用户如果需要，可以通过容器、扩展或者第三方包搭出自己的控制方式。</p>
+        <p>所以，我的这次经历不足以证明Pi存在系统漏洞。那3项待办也更可能是Agent在对话中生成的内容，并非Pi内置的审批组件。</p>
+        <p>Pi这么设计也不是没有道理。对于熟悉终端的技术用户来说，少一些弹窗，做事会更快，也方便按照自己的习惯扩展。</p>
+        <p>但这也提醒了我：一句“先跟我讨论，等我确认后再开发”的Prompt，并不能代替完整的确认机制。Prompt可以告诉Agent应该遵守什么规则，却很难独自负责记录授权状态、限制工具权限和处理异常情况。</p>
+        <p>当Agent开始真正调用工具时，还需要五道产品层面的安全闸门。</p>
+
+        <h2>第一道：任务闸门——先说清楚这次要做到哪里</h2>
+        <p>用户说“帮我做一个旅游计划生成工具”，Agent可以有很多种理解。</p>
+        <p>它可以先整理需求，也可以直接搭页面；可以只做一个演示原型，也可以继续连接数据库、安装依赖甚至尝试部署。如果任务范围不清楚，Agent就会一边执行，一边替用户补全没有说出口的决定。</p>
+        <p>我之前看的课件里提到，一个任务适不适合交给单Agent，至少要看几个条件：目标是不是单一，边界够不够清楚，输入输出有没有约定，以及什么时候应该停止。换成产品经理更熟悉的问题，其实就是：</p>
+        <ul>
+          <li>这次任务最后要交付什么？</li>
+          <li>哪些内容不在本次范围内？</li>
+          <li>哪些细节可以由Agent自己决定？</li>
+          <li>缺少什么信息时必须回来询问？</li>
+          <li>做到哪一步就应该停止？</li>
+        </ul>
+        <p>复杂任务开始前，可以先让Agent给出一份简短计划。用户看到的不只是一串步骤，还应该包括Agent做了哪些假设、哪些地方需要确认，以及哪些事情这一次不会做。</p>
+        <p>任务闸门的作用，就是先把“帮我做一下”变成双方能够核对的任务范围。</p>
+
+        <h2>第二道：权限闸门——只开放当前任务需要的能力</h2>
+        <p>任务说清楚以后，还要看Agent手里拿着什么工具。</p>
+        <p>读取文件和修改文件不是一回事；生成邮件草稿和真正发送邮件不是一回事；修改测试数据和操作线上数据更不是一回事。</p>
+        <p>产品经理在设计Agent权限时，可以先检查三个范围：</p>
+        <ul>
+          <li><strong>工具范围</strong>：这次任务是否需要写文件、运行命令或者调用外部服务？</li>
+          <li><strong>数据范围</strong>：Agent可以查看哪些目录、项目和账号数据？</li>
+          <li><strong>执行范围</strong>：它能否联网、安装依赖、产生费用或者影响线上环境？</li>
+        </ul>
+        <p>这里需要区分两件事。System Prompt里的“不要访问其他文件”是一条行为要求；沙箱、目录限制和权限系统，才决定Agent实际上能不能访问。</p>
+        <p>换到产品经理的视角，工具调用不能只有“允许”和“禁止”两个结果。s03的示例给了一个更具体的分法：明确危险的操作直接拒绝；需要结合当前情况判断的操作，先停下来问用户；已经在安全范围内的操作就自动放行。这样既能守住边界，也不用让用户为每个低风险动作都点一次确认。</p>
+        <p>一些编码Agent已经在采用类似设计。GitHub官方资料显示，Copilot云端编码Agent运行在临时且有防火墙的环境中，只能向指定分支提交修改，不能直接推送到默认分支。Anthropic介绍Claude Code沙箱时，也把文件系统隔离和网络隔离拆成了两条边界。</p>
+        <p>这道闸门不是要求Agent永远小心，而是先缩小它出错时能够影响的范围。</p>
+
+        <h2>第三道：确认闸门——确认要有明确的状态</h2>
+        <p>第三道闸门，就是我的这次Pi体验暴露出来的问题。</p>
+        <p>如果Agent列出了3项需要确认的内容，那么这3项应该分别拥有自己的状态，不能只存在于一段自然语言对话里。</p>
+        <div class="post-table-wrap" role="region" aria-label="确认事项状态表，可横向滚动" tabindex="0">
+        <table>
+          <thead>
+            <tr><th scope="col">待办</th><th scope="col">用户操作</th><th scope="col">系统应记录的状态</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>第一项</td><td>明确同意</td><td>已确认</td></tr>
+            <tr><td>第二项</td><td>明确同意</td><td>已确认</td></tr>
+            <tr><td>第三项</td><td>没有回应</td><td>待确认</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>当用户只确认前两项时，系统应该显示“已确认2/3”。第三项仍然处于待确认状态，依赖它的后续操作也不能开始。</p>
+        <p>这其实就是一个最简单的确认状态机。它把聊天里的“好”“不行”“等等再说”，变成系统能识别、也能检查的状态，例如待确认、已同意、需要修改、已拒绝和已失效。</p>
+        <p>从交互设计角度看，这些状态不能只藏在上下文里。用户需要一眼看见自己批准了什么、还有什么没有决定，以及Agent准备依据哪一项授权继续执行。</p>
+        <p>确认机制至少要守住三条规则：</p>
+        <ol>
+          <li><strong>确认对象要明确。</strong>同意方案A，不等于同时同意方案B；同意生成代码，也不等于同意部署上线。</li>
+          <li><strong>确认范围要明确。</strong>如果执行过程中方案发生了实质变化，原来的确认需要重新校验。</li>
+          <li><strong>没有回复就保持待确认。</strong>它既不是拒绝，也不是批准，不能因为相邻事项已确认就自动补全。</li>
+        </ol>
+        <p>OpenAI在Operator系统卡中也采用了类似思路。对于完成购买、发送邮件等会改变外部状态的动作，系统会在最终执行前再次向用户确认，给用户留下介入机会。</p>
+        <p>这时候，“可以吗”不只是一句礼貌用语，而是一条有对象、有范围、可追溯的授权记录。</p>
+
+        <h2>第四道：观察闸门——别让Agent在黑箱里一路跑到底</h2>
+        <p>确认完成以后，用户仍然需要知道Agent正在做什么。</p>
+        <p>这并不意味着把每一行命令和日志都塞到界面上。对于大多数用户，产品先说清楚三件事就够了：</p>
+        <ul>
+          <li>Agent现在在做什么；</li>
+          <li>它已经改了什么；</li>
+          <li>下一步准备做什么。</li>
+        </ul>
+        <p>如果用户想检查细节，再展开具体命令、参数、文件差异和工具返回结果。</p>
+        <p>这里很考验信息层级。信息太少，用户不知道Agent是不是跑偏了；信息太多，用户又会被日志淹没。比较合适的方式，是先展示任务级进度，再给需要的人查看执行细节。</p>
+        <p>同时，暂停和中止入口应该始终可见。如果Agent正在进入一个用户没有批准的方向，用户应该能在结果产生之前把它停下来，而不是等所有文件都修改完以后再返工。</p>
+
+        <h2>第五道：恢复闸门——提前想好做错了怎么回来</h2>
+        <p>模型再强，也可能误解需求或者执行失败。所以Agent产品不能只设计“怎样完成任务”，还要提前设计“做错以后怎样恢复”。</p>
+        <p>对于编码Agent，常见的恢复方式包括：</p>
+        <ul>
+          <li>在独立分支、工作树或沙箱中修改，不直接影响主分支；</li>
+          <li>执行前建立检查点；</li>
+          <li>清楚展示修改前后的文件差异；</li>
+          <li>支持撤销某一次操作，不必把整个任务推倒重来；</li>
+          <li>保留任务、工具调用和确认记录，方便查出问题发生在哪里；</li>
+          <li>Agent无法恢复时，把控制权交还给用户。</li>
+        </ul>
+        <p>GitHub Copilot云端Agent采用的是“独立分支—提交修改—创建Pull Request—人工审查后合并”的路径。Agent可以自主完成工作，但它的产出不会立刻进入主分支，中间仍然留着检查和回退的空间。</p>
+        <p>用户知道操作可以撤销，才更愿意把任务交给Agent。恢复能力本身就是信任体验的一部分。</p>
+
+        <h2>五道闸门，不是让用户点五次确认</h2>
+        <p>说到这里，可能有人会问：如果Agent每做一步都来问一次，它和传统工具还有什么区别？Vibe Coding吸引人的地方，不就是少一些步骤，更快看到结果吗？</p>
+        <p>这个问题很实际。安全设计并不是让Agent不停打断用户，而是把确认放在需要用户作决定的地方。</p>
+        <p>可以按照影响范围和可逆性，把Agent的操作分成三类：</p>
+        <ul>
+          <li>低风险且容易撤销，例如读取项目结构、搜索代码和生成草稿，可以自动完成。</li>
+          <li>会影响方案或外部状态，但仍在允许范围内，例如修改一组文件、部署测试环境、发送信息或产生费用，需要在执行前明确确认，也可以按范围批量授权。</li>
+          <li>超出安全红线的操作，例如破坏系统环境、访问明确禁止的数据或者绕过权限控制，即使用户误点允许，也应该由系统直接拒绝。</li>
+        </ul>
+        <p>确认过多也会带来风险。用户连续点击“允许”以后，很可能不再认真看提示，这就是确认疲劳。</p>
+        <p>Anthropic在介绍Claude Code沙箱时提到，根据他们自己的内部统计，沙箱让权限提示减少了84%。这不是独立评测，但至少说明了一个值得参考的方向：先划出一块Agent可以自由行动的安全范围，再把少量确认留给越界操作。</p>
+        <p>五道闸门也不是五个弹窗。任务闸门说清目标，权限闸门缩小活动空间，确认闸门守住用户决策，观察闸门让过程可见，恢复闸门降低错误成本。前后几道设计得越清楚，中间需要打断用户的次数反而可以越少。</p>
+
+        <h2>如果写进PRD，可以先落成这四条规则</h2>
+        <p>这次经历可以直接变成一条Agent验收用例：</p>
+        <blockquote><p>给用户展示3项需要确认的事项。用户只确认前两项，对第三项不作回应。预期结果是前两项标记为已确认，第三项保持待确认；Agent不能执行依赖第三项的后续任务。</p></blockquote>
+        <p>在PRD里，还可以把确认机制进一步写成下面四条规则：</p>
+        <div class="post-table-wrap" role="region" aria-label="Agent 确认机制 PRD 规则表，可横向滚动" tabindex="0">
+        <table>
+          <thead>
+            <tr><th scope="col">场景</th><th scope="col">系统状态</th><th scope="col">Agent应该怎么做</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>用户只确认部分事项</td><td>其余事项保持待确认</td><td>只执行已授权且不依赖未确认事项的任务</td></tr>
+            <tr><td>用户没有回复</td><td>授权状态不变</td><td>停留在确认节点，不自行继续</td></tr>
+            <tr><td>执行方案发生实质变化</td><td>原授权需要重新校验</td><td>展示变化，必要时再次确认</td></tr>
+            <tr><td>用户中止任务</td><td>任务标记为已中止</td><td>停止后续工具调用并返回当前执行结果</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>验收时，也不能只看Agent最后有没有把功能做出来。</p>
+        <p>我学习的课件把Agent验收分为功能、质量和鲁棒性三层。放到这个案例里，功能层看它能不能继续开发，质量层看它有没有按照用户意图开发，鲁棒性层则要测试：遇到部分确认、模糊回答或者用户沉默时，它会不会错误地进入下一步。</p>
+        <p>产品团队还可以继续观察几类信号：需要确认的动作有没有出现未授权执行，用户平均会被打断多少次，中止能否及时生效，错误操作能不能成功回滚。</p>
+        <p>任务完成率当然重要，但“完成”不能建立在替用户作决定的基础上。</p>
+
+        <h2>Agent越能行动，越要学会等待</h2>
+        <p>回头看这次使用Pi的经历，最值得讨论的不是第三项具体写了什么，而是它在没有得到回复时，仍然进入了下一步。</p>
+        <p>Pi选择了一条极简、可扩展的产品路线。它把计划、权限确认和沙箱等能力留给用户通过环境或扩展完成。这种取舍适合有能力自己搭建工作流的技术用户，也保留了Vibe Coding追求的效率。</p>
+        <p>但如果Agent要服务更广泛的用户，产品就不能默认每个人都知道怎样写Prompt、搭容器或者设计确认流程。</p>
+        <p>产品经理需要提前说清楚：哪些事情Agent可以自己决定，哪些事情必须等用户；一次授权到哪里结束，出错以后又怎样回来。</p>
+        <p>沉默不等于同意，部分确认也不等于整体授权。</p>
+        <p>一个可靠的Agent，不仅知道下一步该做什么，也知道什么时候不该继续。</p>
+
+        <hr>
+
+        <h2>参考资料</h2>
+        <ol>
+          <li><a href="https://github.com/earendil-works/pi/blob/main/packages/coding-agent/README.md">Pi Coding Agent README</a></li>
+          <li><a href="https://w2d3-pe-agent-slides.vercel.app/">PE在Agent中的应用：单Agent搭建</a></li>
+          <li><a href="https://openai.com/index/operator-system-card/">OpenAI：Operator System Card</a></li>
+          <li><a href="https://docs.github.com/en/copilot/responsible-use/copilot-coding-agent">GitHub Docs：Application card: GitHub Copilot Agents</a></li>
+          <li><a href="https://www.anthropic.com/engineering/claude-code-sandboxing">Anthropic：Making Claude Code more secure and autonomous with sandboxing</a></li>
+          <li><a href="https://github.com/shareAI-lab/learn-claude-code/tree/main/s03_permission">Learn Claude Code：s03 Permission</a></li>
+        </ol>
+      </div>
+
+      <footer class="post-foot">
+        <div class="post-tags">
+          <span class="post-tag">#Agent 产品</span>
+          <span class="post-tag">#安全设计</span>
+          <span class="post-tag">#权限与确认</span>
+        </div>
+        <nav class="post-nav">
+          <a class="prev" href="ai-design-asset-flywheel.html">← 上一篇：从生成一张图，到盘活一套资产</a>
+          <a class="next" href="notebooklm-trust-design.html">下一篇：NotebookLM 如何建立用户信任 →</a>
+        </nav>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container foot">
+      <div class="foot-left">© <span data-year>2026</span> <span class="accent">MUZI-LI.dev</span> · Built with HTML / CSS / JS</div>
+      <div class="foot-motto">把 AI 做成真正有人用的产品。</div>
+      <div class="foot-links">
+        <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="../index.html#about">关于</a>
+        <a href="../index.html#top">返回首页</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="../home-reference.js?v=20260903-3"></script>
+</body>
+</html>

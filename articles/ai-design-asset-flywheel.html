@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>从生成一张图，到盘活一套资产：AI 营销设计的另一条路 · MUZI-LI</title>
+  <meta name="description" content="企业的 AI 设计提效不应只依赖从零生图。文章以 AI 营销物料生成助手为例，拆解如何将历史可编辑模板结构化，让 AI 完成资产检索、内容重组与规则预检，并在人工审核和使用数据的反馈中形成设计资产飞轮。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://miaoda.feishu.cn">
+  <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap">
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../home-reference.css" />
+  <link rel="stylesheet" href="../css/article.css?v=20260903-1" />
+</head>
+<body class="home-page article-detail-page">
+  <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="progress" id="progressBar" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html#top" aria-label="返回 MUZI-LI 首页">
+        MUZI-LI<span class="dot">.</span><span class="brand-dev">dev</span>
+      </a>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+        <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+        <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+        <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+        <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+      </nav>
+
+      <div class="nav-right">
+        <a class="btn-ghost" href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer" aria-label="打开 MUZI-LI 的 GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <button class="nav-burger" id="burger" type="button" aria-label="打开菜单" aria-controls="mobileMenu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#top" data-nav-link="top"><span class="idx">01</span>首页</a>
+    <a href="../index.html#work" data-nav-link="work"><span class="idx">02</span>项目</a>
+    <a href="index.html" data-nav-link="writing" class="is-active" aria-current="page"><span class="idx">03</span>文章</a>
+    <a href="../index.html#about" data-nav-link="about"><span class="idx">04</span>关于我</a>
+    <a href="../index.html#contact" data-nav-link="contact"><span class="idx">05</span>联系</a>
+  </div>
+
+  <main class="article-page" id="article">
+    <article class="post">
+      <a class="back-link" href="index.html">← 返回文章列表</a>
+
+      <header class="post-head">
+        <span class="post-cat">AI 落地</span>
+        <h1 class="post-title">从生成一张图，到盘活一套资产：AI 营销设计的另一条路</h1>
+        <div class="post-byline"><time datetime="2026-09-01">2026-09-01</time> · MUZI-LI · 11 分钟阅读</div>
+      </header>
+
+      <div class="post-content">
+        <p>一提到用 AI 辅助设计，很多人的第一反应是：生成一张新图。</p>
+
+        <p>目前市场上，围绕图片生成和编辑展开的 AIGC 产品并不少。即梦 AI 提供文生图和参考图生图，通义万相支持图像生成、多图参考和交互式编辑，稿定 AI 也将图片生成、AI 改图和电商海报放进了创作平台。它们面向的场景不同，但给用户的入口很相似：输入提示词，或者上传一张参考图，得到一个新的视觉结果。</p>
+
+        <p>在参与公司 AI 营销物料生成助手的需求时，我却遇到了另一个问题。</p>
+
+        <p>公司已经积累了大量活动海报、Banner、弹窗和分享图，也有自己的设计资产管理平台。设计师整理源文件并上传后，平台会将它们转成可编辑模板。但历史模板的利用率一直不高。新活动来了，很多物料仍然要重新设计，完成 Banner、海报、弹窗和分享图四套物料的设计修改，至少需要一周。</p>
+
+        <p>企业并不缺少设计资产，真正的问题是，过去积累的文件很难在新的营销任务中被找到、调用和复用。于是我开始思考：当 AI 进入一家已经积累多年设计文件的企业，它除了生成新画面，能不能也让这些历史资产重新发挥价值？</p>
+
+        <p>也正是从这个问题出发，我逐渐形成了一个判断：对企业而言，AI 设计提效不应只有“从零生成”这一条路径，还应补上“资产复用”这条路径。让过去积累的设计源文件能够被检索、调用、重组和编辑，在新的营销任务中继续发挥作用。</p>
+
+        <p>在做竞品分析时，我也发现，国内已经有产品在探索类似路径。稿定设计企业版将数字资产管理、文件转模板、品牌规范、智能生成和批量套版纳入同一套方案；创客贴也在尝试串联 AIGC 智能设计、企业数字资产管理、内容复用和品牌合规。</p>
+
+        <p>这些产品并不能直接证明我们的方案一定可行，但它们提供了一个重要的外部信号：“AI 生成 + 设计资产复用”是一条值得验证的产品路径。结合公司已有的可编辑模板基础，这个方向随后落到了一个真实需求中——AI 营销物料生成助手。</p>
+
+        <h2>先看流程，不急着选模型</h2>
+
+        <p>确定方向之后，下一步不是先比较哪个生图模型更强，而是回到运营完成一套营销物料的全过程。把流程拆开后，我发现时间不只花在画图，还花在找模板、补信息、重复套版，以及核对多套物料是否一致。</p>
+
+        <p>原有资产平台最先暴露的问题，就是模板很难找。模板分类主要依赖设计师上传时选择的标签，但标签和命名缺少统一规范。搜索或筛选 Banner，有时会出现不少无关素材。运营不知道平台里有什么，也不知道该用哪个词搜索；设计师如果要花很长时间筛选，重新做往往更快。</p>
+
+        <p>一份设计文件要成为可复用资产，至少需要满足三个条件：</p>
+
+        <ol>
+          <li><strong>文件存在</strong>：源文件被集中保存，没有散落或丢失；</li>
+          <li><strong>文件可编辑</strong>：文字、图片、Logo 等图层可以继续修改；</li>
+          <li><strong>文件可调用</strong>：系统知道它适合什么活动、渠道和人群，也知道哪些图层可以改、怎样改。</li>
+        </ol>
+
+        <p>公司的资产平台已经完成了前两步，缺的是第三步。用户说的是“我要做一场面向家庭客户的医疗险咨询活动”，资产库里却只有一组标签和文件名。业务任务与资产信息对不上，模板再多，也只是一个难以使用的历史仓库。</p>
+
+        <p>因此，这个需求的产品目标不再是“生成一张新图”，而是“基于可信资产，更快产出一套可编辑、可审核的营销物料”。这个定义直接决定了后面的数据准备、产品链路和能力边界。</p>
+
+        <h2>资产能否被调用，取决于它有没有结构</h2>
+
+        <p>AI 要调用一份设计资产，仅仅看懂成品图还不够。系统还要知道文件的业务属性和图层规则。</p>
+
+        <p>以保险活动 Banner 为例，模板里的元素大致可以分成三类：</p>
+
+        <ul>
+          <li><strong>必须锁定的内容</strong>：公司 Logo、正式产品图、产品事实和风险提示，不能由模型随意生成或改写；</li>
+          <li><strong>可以在规则内变化的内容</strong>：主标题、字号、版式、图片裁切等，可以调整，但要遵守字数、行数和位置限制；</li>
+          <li><strong>可以开放生成的内容</strong>：背景、插画和装饰元素，可以由生成式 AI 提供候选。</li>
+        </ul>
+
+        <p>二维码、活动时间等动态信息，则要跟随本次活动更新，并在不同物料之间保持一致。</p>
+
+        <p>完成这些标注后，AI 面对的就不再是一张压平的图片，而是一套带有语义和约束的设计结构。系统还需要知道模板适合什么活动、能够覆盖哪些物料、最近用过多少次，以及是否存在版权、版本和过期问题。</p>
+
+        <p>这也是企业设计资产与普通图片素材的区别。源文件不仅保存了视觉结果，还保存了标题放在哪里、产品图占多大空间、品牌信息如何出现等设计规则。因此，资产清洗、图层标注和规则配置不是上线前的一次性整理，而是产品能力的一部分。</p>
+
+        <p>这种结构化在金融产品网络营销中尤其重要。《金融产品网络营销管理办法》已经发布，并将于 2026 年 9 月 30 日起施行。办法要求金融机构建立审批备案和合规审查机制，留存审核材料；产品名称、类别、利率费率和风险提示等关键信息，要与产品合同保持一致，并清晰、醒目地展示。</p>
+
+        <p>对产品设计来说，这意味着金融营销模板不只是视觉文件，还需要带有信息来源、适用范围、有效版本和审核状态。只有这些信息能够被系统识别，复用经过审核且仍在有效期内的模板，才不只是少做一张图，还能保留 Logo、产品信息字段和风险提示区域等已有约束。</p>
+
+        <p>在接入正式产品资料和可维护规则的前提下，AI 可以在提交审核前提示信息遗漏、禁用表达、跨物料冲突和风险提示遮挡等问题，并把疑点定位给设计与合规人员。但旧模板不等于永久合规，重新组合后的成品仍需人工确认。AI 在这里承担的是辅助预检，而不是最终合规判断。</p>
+
+        <p>金融只是一个更容易看清这条边界的行业例子：内容风险越高、审核要求越强，生成结果就越不能被直接当成成品。这也说明了为什么首期范围需要收窄——相比完全自由生图，先验证一条可编辑、可检查、可进入人工审核的链路，更符合真实生产的要求。</p>
+
+        <h2>MVP：先跑通一条可控链路</h2>
+
+        <p>项目已经具备两个基础条件：源文件能够转成可编辑模板，生成结果也能进入现有编辑器继续修改。首期因此只覆盖 Banner、海报、弹窗和分享图四类静态物料，并且只生成用户明确选择的类型。</p>
+
+        <p>活动落地页、交互组件、完全自由的版式、AI 自动给出最终合规结论和未经审核直接发布，都没有进入首期。范围收窄后，产品可以集中验证四件事：</p>
+
+        <ol>
+          <li>AI 能否理解运营用自然语言描述的活动需求；</li>
+          <li>推荐的历史模板是否有人愿意采用；</li>
+          <li>同一份活动信息能否稳定生成多套内容一致的物料；</li>
+          <li>生成结果能否继续编辑，并进入设计与合规审核。</li>
+        </ol>
+
+        <p>例如，运营输入：</p>
+
+        <blockquote><p>9 月面向 30—45 岁家庭客户做医疗险咨询活动，视觉温暖一些，引导用户预约保险顾问，需要 APP Banner、朋友圈海报和分享图。</p></blockquote>
+
+        <p>系统不会立刻出图，而是先识别活动目的、目标人群、产品、时间、转化动作和物料类型，并将它们整理成一份可确认的活动信息。产品、权益、风险提示等关键信息缺失时，系统先追问；没有正式资料时停止生成，避免模型自行补全业务事实。</p>
+
+        <p>信息确认后，系统从历史资产中推荐三个差异明显且能覆盖所选物料的模板方案。用户选定方案后，系统基于正式产品资料生成文案，再将标题、图片、Logo、二维码、时间和风险提示写入模板，处理换行、裁切和对齐，最后输出可编辑结果。</p>
+
+        <p>多套物料共用同一份已经确认的活动信息。截止日期、跳转链接或合规文案发生变化时，系统可以同步更新相关物料，减少 Banner 已改、海报仍保留旧信息的情况。</p>
+
+        <p>在这条链路里，Agent 不直接包办所有工作。它负责理解需求、维护活动信息，并决定下一步调用什么能力；资料查询、模板检索、渲染和规则检查交给受约束的工具；设计质量和合规结论仍由人工确认。需要开放表达的部分交给模型，必须准确的内容交给规则和工具，高风险判断保留给人。</p>
+
+        <p>复用模板不等于只换文字。本次需求仍然接入了 AIGC，用于生成或替换背景、插画和装饰等开放元素；版式、Logo、产品事实和风险提示则继续受到模板约束。生成后，系统还会将结果与近期物料进行比较。如果画面太像，就提示用户更换模板、主视觉，或者重新生成开放区域。模板负责守住框架，AIGC 负责提供变化，相似度检查负责避免重复。</p>
+
+        <h2>上线后，不用“生成量”证明价值</h2>
+
+        <p>产品上线后，我更想验证的不是“生成了多少张图”，而是一项真实活动能否更快走到可编辑、可审核，并最终被采用。围绕这个结果，可以从三类信号判断价值来自哪里、问题又发生在哪一步：</p>
+
+        <ul>
+          <li><strong>任务是否更快完成</strong>：从提出需求到拿到可编辑初稿、通过审核和正式上线分别需要多久；</li>
+          <li><strong>结果是否被采用</strong>：推荐模板的采用率、生成后的修改量、用户放弃结果或转交人工的比例；</li>
+          <li><strong>风险是否可控</strong>：字段识别错误、跨物料信息不一致、合规退回和人工介入主要发生在哪一步。</li>
+        </ul>
+
+        <p>这些指标不只是为了证明产品有效，更重要的是帮助定位问题。搜索经常无结果，需要检查资产标签和检索排序；用户总在改同一类文案，问题可能出在生成规则或模板字数限制；文字频繁溢出，应检查模板渲染和自适应规则；产品事实出错，则要回到正式资料和校验机制。</p>
+
+        <p>模板复用率还要与视觉重复率一起观察。复用率太低，说明旧资产仍未进入新的工作流程；复用率很高但活动越来越像，说明推荐策略和模板更新需要调整。生成了多少张图，只能证明系统运行过，不能证明它真正改变了原来的工作方式。</p>
+
+        <h2>从资产复用到设计资产飞轮</h2>
+
+        <p>盘活旧资产并不是终点。如果把当前能力继续向后推进，资产复用还可以形成一个新的循环：</p>
+
+        <blockquote><p>历史模板 → 检索复用 → AIGC 生成变体 → 相似度检查与人工审核 → 优质结果沉淀 → 下一次检索调用</p></blockquote>
+
+        <p>目前，产品已经接入模板调用、AIGC 视觉生成和相似度检查，但循环还没有完全闭合。新生成的物料不能自动进入资产库，只有真正被采用并通过设计师审核的结果，才适合沉淀为模板或模板变体。推荐、修改、退回、使用频率和视觉相似度等信号也不能只留在日志里，而要真正影响下一次排序、规则调整和资产淘汰。这些仍是后续需要补齐的部分。</p>
+
+        <p>旧资产为生成提供可靠起点，AIGC 让旧模板产生变化，使用和审核数据帮助系统判断哪些结果值得留下，经过确认的新模板又会扩大下一次可以调用的范围。只有上一次使用真正改变了下一次选择，这个飞轮才算转起来。循环中增加的不只是数据，而是越来越丰富、越来越可用的设计资产，这也是我把它称为“设计资产飞轮”的原因。</p>
+
+        <p>如果未来接入发布和业务效果数据，还可以继续观察模板在真实活动中的表现。但点击率、留资率同时受渠道、人群、预算、产品和活动机制影响，不能直接等同于设计质量。效果数据可以参与推荐，不能替代业务归因。</p>
+
+        <h2>复用也有边界</h2>
+
+        <p>并非所有历史文件都值得进入系统。质量差、信息过期、版权不清或结构混乱的设计，会让 AI 更快地放大旧问题。资产盘活的前提是清洗、分类、确认权限和管理版本，而不是把所有文件一次性塞进模板库。</p>
+
+        <p>模板复用也可能带来视觉同质化，因此复用率不能单独成为目标。近期高频模板需要降低推荐权重，相似度过高的结果也要触发替换或重新生成。但相似度只能帮助系统避免重复，不能判断一套设计是否真正有创意。</p>
+
+        <p>这套方式更适合高频、重复、强调品牌一致性的营销任务，例如 Banner、弹窗、分享图和常规活动海报。需要建立全新品牌表达或强调突破性创意的项目，仍然需要从更开放的设计探索开始。</p>
+
+        <h2>生成只是资产循环中的一次调用</h2>
+
+        <p>参与并复盘这个需求后，我对 AI 设计提效的理解发生了变化。模型能生成什么只是起点，更重要的是先找到流程真正卡住的地方，再决定哪些环节交给模型、哪些交给规则和工具、哪些必须由人确认。</p>
+
+        <p>设计源文件也不只是已经交付的旧图。它们沉淀着版式规则、品牌要求和渠道经验。经过整理和标注后，这些经验可以成为 AI 的输入；未来，如果经过审核的新结果也能重新进入模板库，一次设计的终点就会成为下一次设计的起点。</p>
+
+        <p>AI 给企业营销设计带来的变化，不只是更快地产出新内容。它还可以让项目结束后的交付物，变成下一次生产能够继续使用的材料。</p>
+
+        <p>让每一次新设计，都不必重新从零开始。</p>
+
+        <hr>
+
+        <h2>参考资料</h2>
+
+        <ul>
+          <li><a href="https://jimeng.jianying.com/" target="_blank" rel="noopener noreferrer">即梦 AI 官方产品页</a>，访问于 2026 年 9 月 1 日</li>
+          <li><a href="https://tongyi.aliyun.com/wan/" target="_blank" rel="noopener noreferrer">万相官方产品页</a>，访问于 2026 年 9 月 1 日</li>
+          <li><a href="https://www.gaoding.art/" target="_blank" rel="noopener noreferrer">稿定 AI 官方产品页</a>，访问于 2026 年 9 月 1 日</li>
+          <li><a href="https://qiye.gaoding.com/solution/solutions" target="_blank" rel="noopener noreferrer">稿定设计企业版解决方案</a>，访问于 2026 年 9 月 1 日</li>
+          <li><a href="https://www.chuangkit.com/contech" target="_blank" rel="noopener noreferrer">创客贴企业旗舰版</a>，访问于 2026 年 9 月 1 日</li>
+          <li><a href="https://www.safe.gov.cn/safe/2026/0424/27389.html" target="_blank" rel="noopener noreferrer">中国人民银行等八部门：《金融产品网络营销管理办法》</a>，将于 2026 年 9 月 30 日起施行，访问于 2026 年 9 月 1 日</li>
+        </ul>
+
+        <p><em>文中公司项目已做匿名化处理；涉及产品效果的部分只使用已确认事实，未使用未经核实的提效数据。</em></p>
+      </div>
+
+      <footer class="post-foot">
+        <div class="post-tags">
+          <span class="post-tag">#AI 落地</span>
+          <span class="post-tag">#设计资产</span>
+          <span class="post-tag">#营销设计</span>
+        </div>
+        <nav class="post-nav">
+          <span class="prev"></span>
+          <a class="next" href="ai-agent-safety-gates.html">下一篇：AI Agent 上线前，产品经理必须设计的五道安全闸门 →</a>
+        </nav>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container foot">
+      <div class="foot-left">© <span data-year>2026</span> <span class="accent">MUZI-LI.dev</span> · Built with HTML / CSS / JS</div>
+      <div class="foot-motto">把 AI 做成真正有人用的产品。</div>
+      <div class="foot-links">
+        <a href="https://github.com/liyongyan129-maker" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="../index.html#about">关于</a>
+        <a href="../index.html#top">返回首页</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="../home-reference.js?v=20260903-3"></script>
+</body>
+</html>

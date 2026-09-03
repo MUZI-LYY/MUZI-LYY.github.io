@@ -1,0 +1,9 @@
+GSAP 3.12.5
+
+Copyright 2024, GreenSock. All rights reserved.
+
+Distributed under GreenSock's standard "no charge" license:
+https://gsap.com/standard-license/
+
+Licensing details:
+https://gsap.com/licensing/
