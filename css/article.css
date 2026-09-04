@@ -61,7 +61,7 @@ body.article-detail-page .post-title {
   color: var(--home-text);
   font-family: var(--home-sans);
   font-size: clamp(32px, 4.3vw, 42px);
-  font-weight: 750;
+  font-weight: 800;
   line-height: 1.3;
   letter-spacing: -0.025em;
   text-wrap: pretty;
@@ -95,7 +95,7 @@ body.article-detail-page .post-content h2 {
   color: var(--home-text);
   font-family: var(--home-sans);
   font-size: 26px;
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.45;
   letter-spacing: -0.02em;
   text-wrap: pretty;

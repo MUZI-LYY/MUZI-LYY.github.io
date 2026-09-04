@@ -24,19 +24,6 @@
       : null;
     var reducedMotion = Boolean(reduceQuery && reduceQuery.matches);
 
-    var TERMINAL_LINES = [
-      { prompt: '$', text: 'whoami' },
-      { prompt: '>', text: 'MUZI-LI · AI Product Manager', accent: true },
-      { prompt: '$', text: 'cat ./focus.json' },
-      { prompt: '│', text: '{' },
-      { prompt: '│', text: '  "focus": ["AI Products", "Vibe Coding"],' },
-      { prompt: '│', text: '  "method": "observe → decide → build",' },
-      { prompt: '│', text: '  "goal": "useful · reliable · valuable"' },
-      { prompt: '│', text: '}' },
-      { prompt: '$', text: 'status --now' },
-      { prompt: '>', text: 'shipping small, learning fast', accent: true }
-    ];
-
     var BOOT_LINES = [
       { prompt: '>', text: 'muzi-li.dev 启动中……', accent: true },
       { prompt: '[OK]', text: '载入个人资料 ...........' },
@@ -47,12 +34,8 @@
       { prompt: '>', text: '欢迎来到 MUZI-LI 的数字空间', accent: true }
     ];
 
-    var HERO_TERMINAL_SESSION_KEY = 'muzi-li:hero-terminal-played';
     var BOOT_SESSION_KEY = 'muzi-li:boot-played';
 
-    var terminalTimer = 0;
-    var terminalRows = [];
-    var terminalFinished = false;
     var bootTimer = 0;
     var bootActive = false;
     var revealObserver = null;
@@ -114,21 +97,6 @@
       });
     }
 
-    function claimHeroTerminalAnimation() {
-      try {
-        var storage = window.sessionStorage;
-        if (!storage || storage.getItem(HERO_TERMINAL_SESSION_KEY) !== null) {
-          return false;
-        }
-        storage.setItem(HERO_TERMINAL_SESSION_KEY, '1');
-        return true;
-      } catch (error) {
-        // Storage may be blocked in privacy modes. Prefer complete content over
-        // replaying the typing effect on every navigation in that case.
-        return false;
-      }
-    }
-
     function claimBootAnimation() {
       try {
         var storage = window.sessionStorage;
@@ -143,59 +111,6 @@
         return false;
       }
     }
-
-    function runHeroTerminal() {
-      var terminalBody = document.getElementById('termBody');
-      if (!terminalBody) return;
-
-      terminalRows = buildTerminalRows(terminalBody, TERMINAL_LINES, true);
-      terminalFinished = false;
-
-      if (!claimHeroTerminalAnimation() || reducedMotion) {
-        finishHeroTerminal();
-        return;
-      }
-
-      var lineIndex = 0;
-      var characterIndex = 0;
-
-      function typeNextCharacter() {
-        if (reducedMotion) {
-          finishHeroTerminal();
-          return;
-        }
-        if (lineIndex >= terminalRows.length) {
-          terminalFinished = true;
-          terminalTimer = 0;
-          return;
-        }
-
-        var row = terminalRows[lineIndex];
-        var characters = Array.from(row.text);
-        if (characterIndex < characters.length) {
-          row.content.textContent += characters[characterIndex];
-          characterIndex += 1;
-          terminalTimer = window.setTimeout(typeNextCharacter, 34);
-        } else {
-          lineIndex += 1;
-          characterIndex = 0;
-          terminalTimer = window.setTimeout(typeNextCharacter, 260);
-        }
-      }
-
-      terminalTimer = window.setTimeout(typeNextCharacter, 400);
-    }
-
-    function finishHeroTerminal() {
-      if (terminalTimer) window.clearTimeout(terminalTimer);
-      terminalTimer = 0;
-      finishRows(terminalRows);
-      terminalFinished = true;
-    }
-
-    window.addEventListener('pageshow', function (event) {
-      if (event.persisted && terminalRows.length) finishHeroTerminal();
-    });
 
     function skipBoot() {
       if (!bootActive) return;
@@ -549,7 +464,6 @@
           finishRows(bootRows);
           skipBoot();
         }
-        if (!terminalFinished) finishHeroTerminal();
         if (revealObserver) revealObserver.disconnect();
         revealObserver = null;
         body.classList.remove('ef-reveal');
@@ -566,7 +480,6 @@
     });
     addMediaListener(finePointerQuery, updateTiltMode);
 
-    runHeroTerminal();
     initReveal();
     initTilt();
     runBoot();
